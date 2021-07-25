@@ -81,85 +81,54 @@
       }
      </script>
   
+     <!-- Shity form -->
+     <form method="POST">
+       <select name="category">
+         {% for it in categories %}
+          <option value="{{ it.name }}">{{ it.name }}</option>
+         {% endfor %}
+       </select>
+       <input type="text" name="product" id="product">
+       <input type="number" step=".01" name="price" id="price">
+       <input type="submit" value="новый платеж">
+     </form>
+     <!--Короче эта хуйня сверху это форма, переделай html куски красиво, а то что питоновское не трогай-->
     <!--ADD BTN-->
-    <div class="container-fluid text-right">
+    <!--<div class="container-fluid text-right"></div>
         <button type="button" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
-    </div>
+      </div>-->
  
     <!--table-->
     <div class="container-fluid text-left">
+      
         <h1 class="display-4" style="font-size: 25px;">воскресенье, 18 июля 2021</h1><br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Категория</th>
+              <th scope="col">Продукт</th>
+              <th scope="col">Цена</th>
+              <th scope="col">Время</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {% for item in items %}
+                <th scope="row">{{ item.id }}</th>
+                {% if item.category == 'Развлечения' %}
+                  <td><img src="static/img/sports_esports_black_24dp.svg" alt="">{{ item.category }}</td>
+                {% elif item.category == 'Продукты' %}
+                  <td><img src="static/img/restaurant_black_24dp.svg" alt="">{{ item.category }}</td>
+                {% endif %}
+                <td>{{ item.product }}</td>
+                <td>{{ item.price }} UAH</td>
+                <td>{{ item.date_created.time().strftime("%H:%M") }}</td>
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
     
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Категория</th>
-            <th scope="col">Продукт</th>
-            <th scope="col">Цена</th>
-            <th scope="col">Время</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr>
-            <th scope="row">1</th>
-            <td><img src="static/img/sports_esports_black_24dp.svg" alt=""> Развлечения</td>
-            <td>Spotify</td>
-            <td>245.54 UAH</td>
-            <td>16:34</td>
-          </tr>
-
-          <tr>
-            <th scope="row">2</th>
-            <td><img src="static/img/restaurant_black_24dp.svg" alt=""> Продукты</td>
-            <td>Маркет ОПТ</td>
-            <td>54 UAH</td>
-            <td>19:20</td>
-          </tr>
-
- 
-        </tbody>
-      </table>
     </div>
-
-    <!--table-->
-    <div class="container-fluid text-left">
-    <h1 class="display-4" style="font-size: 25px;">суббота, 17 июля 2021</h1><br>
-
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Категория</th>
-        <th scope="col">Продукт</th>
-        <th scope="col">Цена</th>
-        <th scope="col">Время</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr>
-        <th scope="row">1</th>
-        <td><img src="static/img/restaurant_black_24dp.svg" alt=""> Продукты</td>
-        <td>Файно маркет</td>
-        <td>43 UAH</td>
-        <td>11:25</td>
-      </tr>
-
-      <tr>
-        <th scope="row">2</th>
-        <td><img src="static/img/restaurant_black_24dp.svg" alt=""> Продукты</td>
-        <td>Маркет ОПТ</td>
-        <td>54 UAH</td>
-        <td>19:20</td>
-      </tr>
-
-
-    </tbody>
-  </table><br><br>
-    </div>
-
- 
 
 </body>
