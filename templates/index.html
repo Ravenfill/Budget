@@ -20,8 +20,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://www.google.com/jsapi"></script>
-    <title>BBV</title>
+    <link rel="stylesheet" href="static/css/main.css">
+    <title>Budget</title>
 </head>
+
+<!-- 25.07.2021 - Макс, ты можешь в комментах меньше матов писать?-->
 
 <body>
      <!--Head-->
@@ -61,7 +64,7 @@
       </div>
     </div>
 
-    <!--Диаграмма ебаная (СКРИПТ)-->
+    <!--Диаграмма (СКРИПТ)-->
     <script>
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
@@ -82,21 +85,23 @@
      </script>
   
      <!-- Shity form -->
+     <div class="container-fluid form-container" id="form-add">
      <form method="POST">
-       <select name="category">
+       <select class="form-control" name="category">
          {% for it in categories %}
           <option value="{{ it.name }}">{{ it.name }}</option>
          {% endfor %}
-       </select>
-       <input type="text" name="product" id="product">
-       <input type="number" step=".01" name="price" id="price">
-       <input type="submit" value="новый платеж">
+       </select><br>
+       <input class="form-control form-control-sm" type="text" name="product" placeholder="Продукт" id="product"><br>
+       <input class="form-control form-control-sm" type="number" placeholder="Цена" step=".01" name="price" id="price"><br>
+       <input  class="btn btn-primary mb-2" type="submit" onclick="close_form()" onTouchStart="close_form()" value="новый платеж"><br>
      </form>
+    </div>
      <!--Короче эта хуйня сверху это форма, переделай html куски красиво, а то что питоновское не трогай-->
     <!--ADD BTN-->
-    <!--<div class="container-fluid text-right"></div>
-        <button type="button" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
-      </div>-->
+    <div class="container-fluid text-right"></div>
+        <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
+      </div>
  
     <!--table-->
     <div class="container-fluid text-left">
@@ -129,6 +134,26 @@
         </table>
     
     </div>
+
+    <!--Кнопочка открытия создания платежа -->
+    <script>
+      // форма отплаты    
+      var form = document.getElementById("form-add")
+      form.hidden = true; 
+
+      // Отркывает форму с выбором хрени которую нужно добавить в таблицу
+      function open_form(){
+        form.hidden = false;
+        document.getElementById("open_button").hidden = true;
+      }
+
+      // Тут та же хрень ток закрывает форму
+      function close_form(){
+        form.hidden = true;
+        document.getElementById("open_button").hidden = false;
+      }
+
+    </script>
 
 </body>
 </html>
