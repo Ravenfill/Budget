@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect
+from flask_wtf import Form
+from wtforms import StringField, FloatField, SelectField, SubmitField
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import defaultload
 from datetime import datetime
@@ -6,6 +8,20 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/database.db'
 db = SQLAlchemy(app)
+app.config['SECRET_KEY'] = 'dwodkwadwad'
+
+
+# TODO: Add categories
+class Category():
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(255), nullable=False) 
+    image = db.Column(db.LargeBinary, nullable = True)
+
+class AddExpenceForm(Form):
+    category_select = SelectField(choices=['Продукты', 'Развлечения'])
+    product_name = StringField('Продукт')
+    price_value = FloatField('Цена')
+    submit = SubmitField('submit')
 
 class Expences(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,32 +32,29 @@ class Expences(db.Model):
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    if request.method == 'POST':
-        item_category = request.form['category']
-        item_product = request.form['product']
-        item_price = request.form['price']
+    monthly_expences = 0
+    form = AddExpenceForm()
+    # Adding new items
+    if request.method == 'POST' and form.validate():
+        item_category = form.category_select.data
+        item_product = form.product_name.data
+        item_price = form.price_value.data
         new_item = Expences(category=item_category, product=item_product, price=item_price)
-
-        try:
-            db.session.add(new_item)
-            db.session.commit()
-            return redirect('/')
-        except:
-            return "There was an issue adding your task"
-
+        db.session.add(new_item)
+        db.session.commit()
+        return redirect('/')
+    # Rendering everything out
     else:
         items = Expences.query.order_by(Expences.id).all()
         for item in items:
             if item.date_created.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d"):
-                monthly_expences = +item.price
+                monthly_expences += item.price
+        
         return render_template(
             'index.html',
-            categories=[{'name':'Продукты'}, {'name':'Развлечения'}],
-            items=items, 
-            # FIXME: Add better datetime
-            datetime = str(datetime.now().strftime("%A, %d %B %Y")),
-            month = str(datetime.now().strftime("%B")),
-            monthly_expences = monthly_expences)
+            items=items, form=form,
+            date = datetime.now(),
+            monthly_expences = monthly_expences,)
     
     
 

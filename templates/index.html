@@ -27,7 +27,6 @@
 <!-- 25.07.2021 - Макс, ты можешь в комментах меньше матов писать?-->
 <!-- 25.07.2021 - Нет блять -->
 
-<>
      <!--Head-->
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
         <div class="container-fluid">
@@ -56,7 +55,7 @@
         <div class="alert text-center">
           <div class="row xz">
            <div class="col-xs-6 col-md-6 xz2">
-            <h1 class="display-4" style="font-size:50px">Общие затраты за {{ month }} - {{ monthly_expences }} UAH</h1>
+            <h1 class="display-4" style="font-size:50px">Общие затраты за {{ date.strftime("%B") }} - {{ monthly_expences }} UAH</h1>
             <h1 class="display-4" style="font-size:25px">+287 UAH по сравнению с июнь</h1>
           </div>
           
@@ -84,21 +83,18 @@
         chart.draw(data, options);
       }
      </script>
-  
-     <!-- Shity form -->
-     <div class="container-fluid form-container" id="form-add">
-     <form method="POST">
-       <select class="form-control" name="category">
-         {% for it in categories %}
-          <option value="{{ it.name }}">{{ it.name }}</option>
-         {% endfor %}
-       </select><br>
-       <input class="form-control form-control-sm" type="text" name="product" placeholder="Продукт" id="product"><br>
-       <input class="form-control form-control-sm" type="number" placeholder="Цена" step=".01" name="price" id="price"><br>
-       <input  class="btn btn-primary mb-2" type="submit" onclick="close_form()" onTouchStart="close_form()" value="новый платеж"><br>
-     </form>
-    </div>
-     <!--Короче эта хуйня сверху это форма, переделай html куски красиво, а то что питоновское не трогай-->
+
+     
+     <!-- A better one shity form -->
+    <div class="container-fluid form-container" id="form-add">
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.category_select(class_="form-control") }}<br>
+        {{ form.product_name(class_="form-control form-control-sm") }}<br>
+        {{ form.price_value(class_="form-control form-control-sm") }}<br>
+        {{ form.submit(class_="btn btn-primary mb-2") }}
+      </form>
+     </div>
     <!--ADD BTN-->
     <div class="container-fluid text-right">
         <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
