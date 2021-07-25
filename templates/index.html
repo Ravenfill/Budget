@@ -100,8 +100,7 @@
  
     <!--table-->
     <div class="container-fluid text-left">
-      
-        <h1 class="display-4" style="font-size: 25px;">воскресенье, 18 июля 2021</h1><br>
+            <h1 class="display-4" style="font-size: 25px;">{{ datetime }}</h1><br>
         <table class="table">
           <thead>
             <tr>
@@ -113,8 +112,8 @@
               </tr>
           </thead>
           <tbody>
+            {% for item in items %}
             <tr>
-              {% for item in items %}
                 <th scope="row">{{ item.id }}</th>
                 {% if item.category == 'Развлечения' %}
                   <td><img src="static/img/sports_esports_black_24dp.svg" alt="">{{ item.category }}</td>
@@ -124,11 +123,12 @@
                 <td>{{ item.product }}</td>
                 <td>{{ item.price }} UAH</td>
                 <td>{{ item.date_created.time().strftime("%H:%M") }}</td>
-              {% endfor %}
             </tr>
+            {% endfor %}
           </tbody>
         </table>
     
     </div>
 
 </body>
+</html>

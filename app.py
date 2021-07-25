@@ -34,7 +34,7 @@ def index():
         return render_template(
             'index.html',
             categories=[{'name':'Продукты'}, {'name':'Развлечения'}],
-            items=items)
+            items=items, datetime = str(datetime.now().strftime("%A, %d %B %Y")))
 
 @app.errorhandler(404)
 def page_not_fount(e):
