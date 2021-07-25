@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_wtf import Form
-from wtforms import StringField, FloatField, SelectField, SubmitField
+from wtforms import StringField, FloatField, SelectField, SubmitField, DecimalField
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import defaultload
 from datetime import datetime
@@ -20,7 +20,7 @@ class Category():
 class AddExpenceForm(Form):
     category_select = SelectField(choices=['Продукты', 'Развлечения'])
     product_name = StringField('Продукт')
-    price_value = FloatField('Цена')
+    price_value = DecimalField('Цена')
     submit = SubmitField('submit')
 
 class Expences(db.Model):
