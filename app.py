@@ -31,10 +31,19 @@ def index():
 
     else:
         items = Expences.query.order_by(Expences.id).all()
+        for item in items:
+            if item.date_created.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d"):
+                monthly_expences = +item.price
         return render_template(
             'index.html',
             categories=[{'name':'Продукты'}, {'name':'Развлечения'}],
-            items=items, datetime = str(datetime.now().strftime("%A, %d %B %Y")))
+            items=items, 
+            # FIXME: Add better datetime
+            datetime = str(datetime.now().strftime("%A, %d %B %Y")),
+            month = str(datetime.now().strftime("%B")),
+            monthly_expences = monthly_expences)
+    
+    
 
 @app.errorhandler(404)
 def page_not_fount(e):
