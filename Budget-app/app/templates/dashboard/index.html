@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        ################################
+        # DESIGN BY ovladaettt         #
+        # inst: ovladaettt             # 
+        ################################
+    -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/main.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="static/css/main.css">
+    <title>Budget</title>
+</head>
+
+<!-- 25.07.2021 - Макс, ты можешь в комментах меньше матов писать?-->
+<!-- 25.07.2021 - Нет блять -->
+
+     <!--Head-->
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <a href="#" style="text-decoration:none" class="navbar-brad"><img width="170px" src="static/img/logo.png" alt=""></a>
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li id="nav-item-up" class="nav-item active">
+                        <a href="#" class="nav-link"><img src="static/img/home_black_24dp.svg" alt=""> Главная</a>
+                    </li>
+                    <li id="nav-item-down" class="nav-item">
+                        <a href="#" class="nav-link"><img src="static/img/account_circle_black_24dp.svg" alt=""> Профиль </a> <!--имя профиля будет мб-->
+                    </li>
+                    <li id="nav-item-down" class="nav-item">
+                        <a href="#" class="nav-link"><img src="static/img/settings_black_24dp.svg" alt=""> Настройки</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Total-->
+    <div class="container-fluid">
+        <div class="alert text-center">
+          <div class="row xz">
+           <div class="col-xs-6 col-md-6 xz2">
+            <h1 class="display-4" style="font-size:50px">Общие затраты за {{ date.strftime("%B") }} - {{ monthly_expences }} UAH</h1>
+            <h1 class="display-4" style="font-size:25px">+287 UAH по сравнению с июнь</h1>
+          </div>
+          
+            <div class="col-xs-6 col-md-6" id="air" style="width: 500px; height: 400px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--Диаграмма (СКРИПТ)-->
+    <script>
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+       var data = google.visualization.arrayToDataTable([
+        ['Категория', 'Процент затрат'],
+        ['Продукты',     78.09],
+        ['Развлечения', 20.95],
+       ]);
+       var options = {
+        title: 'Расходы',
+        is3D: false,
+        pieResidueSliceLabel: 'Остальное'
+       };
+       var chart = new google.visualization.PieChart(document.getElementById('air'));
+        chart.draw(data, options);
+      }
+     </script>
+
+     
+     <!-- A better one shity form -->
+    <div class="container-fluid form-container" id="form-add">
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.category_select(class_="form-control") }}<br>
+        {{ form.product_name(class_="form-control form-control-sm") }}<br>
+        {{ form.price_value(class_="form-control form-control-sm") }}<br>
+        {{ form.submit(class_="btn btn-primary mb-2") }}
+      </form>
+     </div>
+    <!--ADD BTN-->
+    <div class="container-fluid text-right">
+        <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
+      </div>
+ 
+    # FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: 
+    # FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: 
+    # FIXME: РАЗДЕЛИ НОРМАЛЬНО, ТУПОЕ БЛЯТЬ
+    <!--table-->
+    <div class="container-fluid text-left">
+      {% set last_val={'key':'unk'} %}
+      {% set last_val_sec={'key':'unk'} %}
+      {% for item in items %}
+        {% set test_sec = last_val_sec.update({'unk':item.date_created.strftime("%s")}) %}
+        {% if item.date_created.strftime("%Y-%m-%d")|string != last_val.key %}
+          {% set test = last_val.update({'unk':item.date_created.strftime("%Y-%m-%d")}) %}
+          <h1 class="display-4" style="font-size: 25px;">{{ item.date_created.strftime("%B, %d %a") }}</h1><br>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Category</th>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{{ item.id }}</th>
+                {% if item.category == 'Развлечения' %}
+                <td><img src="static/img/sports_esports_black_24dp.svg" alt=""> {{ item.category }}</td>
+                {% elif item.category == 'Продукты' %}
+                <td><img src="static/img/restaurant_black_24dp.svg" alt=""> {{ item.category }}</td>
+                {% endif %}
+                <td>{{ item.product }}</td>
+                <td>{{ item.price }} UAH</td>
+                <td>{{ item.date_created.time().strftime("%H:%M") }}</td>
+              </tr>
+            </tbody>
+          </table>
+        {% elif item.date_created.strftime("%Y-%m-%d")|string == last_val.key and item.date_created.strftime("%S")  != last_val_sec.key %}
+          {% set test_sec = last_val_sec.update({'unk':item.date_created.strftime("%S")}) %}
+            <tr>
+              <th scope="row">{{ item.id }}</th>
+              {% if item.category == 'Развлечения' %}
+              <td><img src="static/img/sports_esports_black_24dp.svg" alt=""> {{ item.category }}</td>
+              <{% elif item.category == 'Продукты' %}
+              <td><img src="static/img/restaurant_black_24dp.svg" alt=""> {{ item.category }}</td>
+              {% endif %}
+              <td>{{ item.product }}</td>
+              <td>{{ item.price }} UAH</td>
+              <td>{{ item.date_created.time().strftime("%H:%M") }}</td>
+            </tr>
+      {% endif %}
+      {% endfor %}
+    </div>
+    
+
+    <!--Кнопочка открытия создания платежа -->
+    <script>
+      // форма отплаты    
+      var form = document.getElementById("form-add")
+      form.hidden = true; 
+
+      // Отркывает форму с выбором хрени которую нужно добавить в таблицу
+      function open_form(){
+        form.hidden = false;
+        document.getElementById("open_button").hidden = true;
+      }
+
+      // Тут та же хрень ток закрывает форму
+      function close_form(){
+        form.hidden = true;
+        document.getElementById("open_button").hidden = false;
+      }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+
+.navbar-nav li{
+    padding-right: 20px;
+}
+
+.nav-link{font-size: 1.1em !important;}
+
+
+
+.form-container{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+@media(min-width: 770px){
+.xz{
+    margin-left: 50px;
+    
+}
+
+.form-container input{
+    width: 500px !important;
+}
+
+.xz2{
+    margin-top: 130px;
+}
+}
+
+@media(max-width:500){
+    #air{
+        width: 11500px;
+    }
+}
+
