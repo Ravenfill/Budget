@@ -21,7 +21,7 @@ def index():
         return redirect('/')
     # Rendering everything out
     else:
-        items = Expences.query.order_by(Expences.id).all()
+        items = Expences.query.order_by(Expences.date_created.desc()).all()
         for item in items:
             if item.date_created.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d"):
                 monthly_expences += item.price
@@ -31,3 +31,11 @@ def index():
             items=items, form=form,
             date = datetime.now(),
             monthly_expences = monthly_expences,)
+
+@dashboard.route('/dashboard/notindex')
+def notindex():
+    items = Expences.query.order_by(Expences.date_created.desc()).all()
+    return render_template(
+            'dashboard/notindex.html',
+            items=items,
+            date = datetime.now())

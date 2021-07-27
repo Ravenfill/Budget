@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
 
@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 
 @app.errorhandler(404)
 def page_not_fount(e):
-    return render_template('404.html'), 404
+    return render_template('/errorcodes/404.html'), 404
 
 @app.route('/')
 def index():

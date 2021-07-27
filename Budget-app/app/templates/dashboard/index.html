@@ -100,57 +100,44 @@
         <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
       </div>
  
-    # FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: 
-    # FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: FIXME: 
-    # FIXME: РАЗДЕЛИ НОРМАЛЬНО, ТУПОЕ БЛЯТЬ
+    
     <!--table-->
+    {% set count = namespace(value=1) %}
     <div class="container-fluid text-left">
-      {% set last_val={'key':'unk'} %}
-      {% set last_val_sec={'key':'unk'} %}
-      {% for item in items %}
-        {% set test_sec = last_val_sec.update({'unk':item.date_created.strftime("%s")}) %}
-        {% if item.date_created.strftime("%Y-%m-%d")|string != last_val.key %}
-          {% set test = last_val.update({'unk':item.date_created.strftime("%Y-%m-%d")}) %}
-          <h1 class="display-4" style="font-size: 25px;">{{ item.date_created.strftime("%B, %d %a") }}</h1><br>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Category</th>
-                <th scope="col">Product</th>
-                <th scope="col">Price</th>
-                <th scope="col">Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">{{ item.id }}</th>
-                {% if item.category == 'Развлечения' %}
-                <td><img src="static/img/sports_esports_black_24dp.svg" alt=""> {{ item.category }}</td>
-                {% elif item.category == 'Продукты' %}
-                <td><img src="static/img/restaurant_black_24dp.svg" alt=""> {{ item.category }}</td>
-                {% endif %}
-                <td>{{ item.product }}</td>
-                <td>{{ item.price }} UAH</td>
-                <td>{{ item.date_created.time().strftime("%H:%M") }}</td>
-              </tr>
-            </tbody>
-          </table>
-        {% elif item.date_created.strftime("%Y-%m-%d")|string == last_val.key and item.date_created.strftime("%S")  != last_val_sec.key %}
-          {% set test_sec = last_val_sec.update({'unk':item.date_created.strftime("%S")}) %}
+      {% for day, item in items|groupby("date_created.day")|reverse %}
+        {% for i in item %}
+          <h1 class="display-4" style="font-size: 25px;">{{ i.date_created.strftime("%B,") }} {{ day }} {{ i.date_created.strftime("%A") }}</h1><br>
+          {% break %}
+        {% endfor %}
+        <table class="table">
+          <thead>
             <tr>
-              <th scope="row">{{ item.id }}</th>
-              {% if item.category == 'Развлечения' %}
-              <td><img src="static/img/sports_esports_black_24dp.svg" alt=""> {{ item.category }}</td>
-              <{% elif item.category == 'Продукты' %}
-              <td><img src="static/img/restaurant_black_24dp.svg" alt=""> {{ item.category }}</td>
-              {% endif %}
-              <td>{{ item.product }}</td>
-              <td>{{ item.price }} UAH</td>
-              <td>{{ item.date_created.time().strftime("%H:%M") }}</td>
+              <th scope="col">#</th>
+              <th scope="col">Категория</th>
+              <th scope="col">Продукт</th>
+              <th scope="col">Цена</th>
+              <th scope="col">Время</th>
             </tr>
-      {% endif %}
-      {% endfor %}
+          </thead>
+          <tbody>
+            {% for i in item %}
+              <tr>
+                <th scope="row">{{ count.value }}</th>
+                {% set count.value = count.value + 1 %}
+                {% if i.category == 'Развлечения' %}
+                  <td><img src="static/img/sports_esports_black_24dp.svg" alt=""> {{ i.category }}</td>
+                {% elif i.category == 'Продукты' %}
+                  <td><img src="static/img/restaurant_black_24dp.svg" alt=""> {{ i.category }}</td>
+                {% endif %}
+                <td>{{ i.product }}</td>
+                <td>{{ i.price }} UAH</td>
+                <td>{{ i.date_created.strftime("%H:%M") }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% set count.value = 1 %}
+        {% endfor %}
     </div>
     
 
