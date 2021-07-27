@@ -4,9 +4,9 @@ from app.dashboard.models import Expences
 from app.dashboard.forms import AddExpenceForm
 from datetime import datetime
 
-dashboard = Blueprint('dashboard', __name__, url_prefix='/')
+dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
-@dashboard.route('/dashboard', methods=['POST', 'GET'])
+@dashboard.route('/', methods=['POST', 'GET'])
 def index():
     monthly_expences = 0
     form = AddExpenceForm()
@@ -31,11 +31,3 @@ def index():
             items=items, form=form,
             date = datetime.now(),
             monthly_expences = monthly_expences,)
-
-@dashboard.route('/dashboard/notindex')
-def notindex():
-    items = Expences.query.order_by(Expences.date_created.desc()).all()
-    return render_template(
-            'dashboard/notindex.html',
-            items=items,
-            date = datetime.now())
