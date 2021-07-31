@@ -3,11 +3,20 @@ from app import db
 from app.dashboard.models import Expences
 from app.dashboard.forms import AddExpenceForm
 from datetime import datetime
+from app import login_manager
+from flask_login import login_required, current_user
+from app.auth.models import User
 
-dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
+board = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
-@dashboard.route('/', methods=['POST', 'GET'])
-def index():
+# Login manager user loader 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@board.route('/', methods=['POST', 'GET'])
+@login_required
+def dashboard():
     monthly_expences = 0
     form = AddExpenceForm()
     # Adding new items
@@ -27,7 +36,9 @@ def index():
                 monthly_expences += item.price
         
         return render_template(
-            'dashboard/index.html',
+            'dashboard/dashboard.html',
             items=items, form=form,
             date = datetime.now(),
-            monthly_expences = monthly_expences,)
+            monthly_expences = monthly_expences,
+            name = current_user.username,
+            )
