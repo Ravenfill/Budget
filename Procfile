@@ -1,1 +1,1 @@
-web: python /Budget-app/run.py
+web: gunicorn wsgi:app
