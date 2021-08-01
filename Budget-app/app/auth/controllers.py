@@ -7,9 +7,9 @@ from app import db, login_manager
 
 auth = Blueprint('auth', __name__, url_prefix='/')
 
-@auth.route('/signup', methods=['GET', 'POST'])
-def signup():
-    form = SignUpForm()
+@auth.route('/signin', methods=['GET', 'POST'])
+def signin():
+    form = SignInForm()
 
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -18,11 +18,11 @@ def signup():
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard.dashboard'))
 
-    return render_template('/auth/signup.html', form=form)
+    return render_template('/auth/signin.html', form=form)
 
-@auth.route('/signin', methods=['GET', 'POST'])
-def signin():
-    form = SignInForm()
+@auth.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignUpForm()
 
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='sha256')
@@ -32,7 +32,7 @@ def signin():
         login_user(new_user)
         return redirect(url_for('dashboard.dashboard'))
 
-    return render_template('/auth/signin.html', form=form)
+    return render_template('/auth/signup.html', form=form)
 
 @auth.route('/signout')
 @login_required

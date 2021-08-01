@@ -1,7 +1,7 @@
-<!--Registration-->
-<form method="POST", action="/signin">
+<form method="POST", action="/signup">
     {{ form.hidden_tag() }}
-    {{ form.username }}<br>
-    {{ form.password }}<br>
+    {{ form.username(class_="form-control form-control-sm") }}<br>
+    {{ form.password(class_="form-control form-control-sm") }}<br>
+    {{ form.remember(class_="form-control form-control-sm") }}<br>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
 </form>
