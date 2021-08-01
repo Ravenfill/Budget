@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<lang lang="en">
 <head>
     <!--
         ################################
@@ -21,6 +21,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://www.google.com/jsapi"></script>
     <link rel="stylesheet" href="static/css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  
     <title>Budget</title>
 </head>
 
@@ -43,7 +46,9 @@
                         <a href="#" class="nav-link"><img src="static/img/account_circle_black_24dp.svg" alt=""> Профиль </a> <!--имя профиля будет мб-->
                     </li>
                     <li id="nav-item-down" class="nav-item">
-                        <a href="#" class="nav-link"><img src="static/img/settings_black_24dp.svg" alt=""> Настройки</a>
+                        <a href="{{ url_for('auth.signout') }}" class="nav-link"><span class="material-icons"> login
+                      
+                          </span></a>
                     </li>
                 </ul>
             </div>
@@ -63,27 +68,6 @@
         </div>
       </div>
     </div>
-
-    <!--Диаграмма (СКРИПТ)-->
-    <script>
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-       var data = google.visualization.arrayToDataTable([
-        ['Категория', 'Процент затрат'],
-        ['Продукты',     78.09],
-        ['Развлечения', 20.95],
-       ]);
-       var options = {
-        title: 'Расходы',
-        is3D: false,
-        pieResidueSliceLabel: 'Остальное'
-       };
-       var chart = new google.visualization.PieChart(document.getElementById('air'));
-        chart.draw(data, options);
-      }
-     </script>
-
      
      <!-- A better one shity form -->
     <div class="container-fluid form-container" id="form-add">
@@ -125,9 +109,9 @@
                 <th scope="row">{{ count.value }}</th>
                 {% set count.value = count.value + 1 %}
                 {% if i.category == 'Развлечения' %}
-                  <td><img src="static/img/sports_esports_black_24dp.svg" alt=""> {{ i.category }}</td>
+                  <td><span class="material-icons">sports_esports</span> {{ i.category }}</td>
                 {% elif i.category == 'Продукты' %}
-                  <td><img src="static/img/restaurant_black_24dp.svg" alt=""> {{ i.category }}</td>
+                  <td><span class="material-icons">restaurant</span>  {{ i.category }}</td>
                 {% endif %}
                 <td>{{ i.product }}</td>
                 <td>{{ i.price }} UAH</td>
@@ -141,27 +125,9 @@
     </div>
     
 
-    <!--Кнопочка открытия создания платежа -->
-    <script>
-      // форма отплаты    
-      var form = document.getElementById("form-add")
-      form.hidden = true; 
+    <!-- JS -->
+    <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>
 
-      // Отркывает форму с выбором хрени которую нужно добавить в таблицу
-      function open_form(){
-        form.hidden = false;
-        document.getElementById("open_button").hidden = true;
-      }
-
-      // Тут та же хрень ток закрывает форму
-      function close_form(){
-        form.hidden = true;
-        document.getElementById("open_button").hidden = false;
-      }
-
-    </script>
-
-    <h1><a href="{{ url_for('auth.signout') }}">Log Out</a></h1>
 
 </body>
 </html>

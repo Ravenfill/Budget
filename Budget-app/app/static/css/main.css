@@ -6,13 +6,24 @@
 .nav-link{font-size: 1.1em !important;}
 
 
-
 .form-container{
     display: flex;
     justify-content: center;
 }
 
+.form-center{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90vh;
+    
+}
 
+
+.form-center fform{
+    margin-top: 10px;
+}
 
 @media(min-width: 770px){
 .xz{
