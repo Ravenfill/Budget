@@ -29,7 +29,7 @@
 </li>
 </ol>
 <h2 class="code-line" data-line-start=37 data-line-end=38 ><a id="Usage_37"></a>Usage</h2>
-<p class="has-line-data" data-line-start="39" data-line-end="41">After you run main file you should have server running localy on porn <code>5000</code><br>
+<p class="has-line-data" data-line-start="39" data-line-end="41">After you run main file you should have server running localy on port <code>5000</code><br>
 To acces website type <code>localhost:5000</code> or <code>127.0.0.1:5000</code> in your browser’s url bar</p>
 <h2 class="code-line" data-line-start=42 data-line-end=43 ><a id="Contact_42"></a>Contact</h2>
 <p class="has-line-data" data-line-start="44" data-line-end="47">Jawdypus - <a href="https://www.instagram.com/jawdypus/">@jawdypus</a><br>
