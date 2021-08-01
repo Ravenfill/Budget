@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from app.auth.forms import SignInForm, SignUpForm
 from app.auth.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
 from app import db, login_manager
 
 auth = Blueprint('auth', __name__, url_prefix='/')
@@ -33,3 +33,9 @@ def signin():
         return redirect(url_for('dashboard.dashboard'))
 
     return render_template('/auth/signin.html', form=form)
+
+@auth.route('/signout')
+@login_required
+def signout():
+    logout_user()
+    return redirect(url_for('dashboard.dashboard'))

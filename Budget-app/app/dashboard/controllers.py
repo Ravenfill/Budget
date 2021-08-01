@@ -14,6 +14,7 @@ board = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Main dashboard route
 @board.route('/', methods=['POST', 'GET'])
 @login_required
 def dashboard():
@@ -24,21 +25,23 @@ def dashboard():
         item_category = form.category_select.data
         item_product = form.product_name.data
         item_price = form.price_value.data
-        new_item = Expences(category=item_category, product=item_product, price=item_price)
+        new_item = Expences(category=item_category, product=item_product, price=item_price, user=current_user.id)
         db.session.add(new_item)
         db.session.commit()
         return redirect('/')
     # Rendering everything out
     else:
-        items = Expences.query.order_by(Expences.date_created.desc()).all()
-        for item in items:
-            if item.date_created.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d"):
+        exps = Expences.query.order_by(Expences.date_created.desc()).all()
+        items = []
+        for item in exps:
+            if item.date_created.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d") and item.user == current_user.id:
                 monthly_expences += item.price
+            if item.user == current_user.id:
+                items.append(item)
         
         return render_template(
             'dashboard/dashboard.html',
             items=items, form=form,
             date = datetime.now(),
             monthly_expences = monthly_expences,
-            name = current_user.username,
             )
