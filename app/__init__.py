@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_manager, login_required, logout_user, current_user
+from flask_moment import Moment
 
 # Base app creation
 app = Flask(__name__)
@@ -9,6 +10,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'auth.signup'
+moment = Moment(app)
 
 # Blueprints registration
 from app.dashboard.controllers import board

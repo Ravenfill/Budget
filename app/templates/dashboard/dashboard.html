@@ -1,3 +1,6 @@
+{{ moment.include_moment()}}
+{{ moment.locale("ru") }}
+
 <!DOCTYPE html>
 <lang lang="en">
 <head>
@@ -114,7 +117,7 @@
                 {% endif %}
                 <td>{{ i.product }}</td>
                 <td>{{ i.price }} UAH</td>
-                <td><span id="time">{{ i.date_created }}</span></td>
+                <td><span id="time">{{ moment(i.date_created).format('hh:mm') }}</span></td>
               </tr>
             {% endfor %}
           </tbody>
@@ -122,14 +125,6 @@
         {% set count.value = 1 %}
         {% endfor %}
     </div>
-
-    <script>
-      var elem = document.getElementById("time")
-      var now = new Date();
-      var options = { month: 'short', day: '2-digit',
-                      hour: 'numeric', minute: '2-digit' };
-      elem.innerHTML = now.toLocaleString('en-us', options);
-    </script>
 
     <!-- JS -->
     <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>
