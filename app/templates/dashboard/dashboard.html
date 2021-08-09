@@ -74,8 +74,8 @@
       <form method="POST">
         {{ form.hidden_tag() }}
         {{ form.category_select(class_="form-control") }}<br>
-        {{ form.product_name(class_="form-control form-control-sm") }}<br>
-        {{ form.price_value(class_="form-control form-control-sm") }}<br>
+        {{ form.product_name(class_="form-control form-control-sm", placeholder="Продукт") }}<br>
+        {{ form.price_value(class_="form-control form-control-sm",  placeholder="Цена") }}<br>
         {{ form.submit(class_="btn btn-primary mb-2") }}
       </form>
      </div>
@@ -83,7 +83,6 @@
     <div class="container-fluid text-right">
         <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
       </div>
- 
     
     <!--table-->
     {% set count = namespace(value=1) %}
@@ -115,7 +114,7 @@
                 {% endif %}
                 <td>{{ i.product }}</td>
                 <td>{{ i.price }} UAH</td>
-                <td>{{ i.date_created.strftime("%H:%M") }}</td>
+                <td><span id="time">{{ i.date_created }}</span></td>
               </tr>
             {% endfor %}
           </tbody>
@@ -123,7 +122,14 @@
         {% set count.value = 1 %}
         {% endfor %}
     </div>
-    
+
+    <script>
+      var elem = document.getElementById("time")
+      var now = new Date();
+      var options = { month: 'short', day: '2-digit',
+                      hour: 'numeric', minute: '2-digit' };
+      elem.innerHTML = now.toLocaleString('en-us', options);
+    </script>
 
     <!-- JS -->
     <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>

@@ -1,3 +1,4 @@
+from enum import Flag
 from flask import Blueprint, render_template, request, redirect, url_for
 from app.auth.forms import SignInForm, SignUpForm
 from app.auth.models import User
@@ -13,7 +14,7 @@ def signin():
 
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user:
+        if user: 
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard.dashboard'))
@@ -29,7 +30,7 @@ def signup():
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        login_user(new_user)
+        login_user(new_user, remember=False)
         return redirect(url_for('dashboard.dashboard'))
 
     return render_template('/auth/signup.html', form=form)
