@@ -12,6 +12,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'auth.signup'
 moment = Moment(app)
 
+
 # Blueprints registration
 from app.dashboard.controllers import board
 app.register_blueprint(board)
