@@ -1,13 +1,13 @@
 # Statement for enabling the development environment
-DEBUG = False
+DEBUG = True
 
 # Define the application directory
 import os
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
 
 # Define the database - we are working with
 # SQLite for this example
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR + '/app/database/', 'app.db')
+SQLALCHEMY_DATABASE_URI = 'postgresql://hiyscrbsvriuyx:e91d5ea7ed5395c2b607f01d669f91f8c5e0ef2fc11720015f8514931f54e29d@ec2-52-211-158-144.eu-west-1.compute.amazonaws.com:5432/d2lmfhvl2p21l'
 #DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. A common general assumption is
@@ -20,7 +20,7 @@ THREADS_PER_PAGE = 2
 CSRF_ENABLED     = True
 
 # Use a secure, unique and absolutely secret key for
-# signing the data.
+# signing the data. 
 CSRF_SESSION_KEY = "secret"
 
 # Secret key for signing cookies
