@@ -1,3 +1,6 @@
+{{ moment.include_moment()}}
+{{ moment.locale("ru") }}
+
 <!DOCTYPE html>
 <lang lang="en">
 <head>
@@ -33,7 +36,7 @@
      <!--Head-->
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
         <div class="container-fluid">
-            <a href="#" style="text-decoration:none" class="navbar-brad"><img width="170px" src="static/img/logo.png" alt=""></a>
+            <!--<a href="url_for(dashboard.dashboard)" style="text-decoration:none" class="navbar-brad"><img width="170px" src="static/img/logo.png" alt=""></a>-->
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarResponsive">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -60,8 +63,17 @@
         <div class="alert text-center">
           <div class="row xz">
            <div class="col-xs-6 col-md-6 xz2">
-            <h1 class="display-4" style="font-size:50px">Общие затраты за {{ date.strftime("%B") }} - {{ monthly_expences }} UAH</h1>
-            <h1 class="display-4" style="font-size:25px">+287 UAH по сравнению с июнь</h1>
+            {% if exps.monthly_expences == None %}
+            <h1 class="display-4" style="font-size:50px">Общие затраты за {{ moment(date).format('MMMM') }} - 0 UAH</h1>
+            {% else %}
+            <h1 class="display-4" style="font-size:50px">Общие затраты за {{ moment(date).format('MMMM') }} - {{ exps.monthly_expences }} UAH</h1>
+            {% endif %}
+            {% if exps.previous_month_exps == None %}
+            <h1 class="display-4" style="font-size:25px">+0 UAH по сравнению с {{ moment(prev_month).format('MMMM') }}</h1>
+            {% else %}
+            {% set previous = exps.monthly_expences - exps.previous_month_exps %}
+            <h1 class="display-4" style="font-size:25px">{{ previous }} UAH по сравнению с {{ moment(prev_month).format('MMMM') }}</h1>
+            {% endif %}
           </div>
           
             <div class="col-xs-6 col-md-6" id="air" style="width: 500px; height: 400px;"></div>
@@ -74,8 +86,8 @@
       <form method="POST">
         {{ form.hidden_tag() }}
         {{ form.category_select(class_="form-control") }}<br>
-        {{ form.product_name(class_="form-control form-control-sm") }}<br>
-        {{ form.price_value(class_="form-control form-control-sm") }}<br>
+        {{ form.product_name(class_="form-control form-control-sm", placeholder="Продукт") }}<br>
+        {{ form.price_value(class_="form-control form-control-sm",  placeholder="Цена") }}<br>
         {{ form.submit(class_="btn btn-primary mb-2") }}
       </form>
      </div>
@@ -83,14 +95,13 @@
     <div class="container-fluid text-right">
         <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
       </div>
- 
     
     <!--table-->
     {% set count = namespace(value=1) %}
     <div class="container-fluid text-left">
-      {% for day, item in items|groupby("date_created.day")|reverse %}
+      {% for day, item in items|groupby("date_created.month")|reverse %}
         {% for i in item %}
-          <h1 class="display-4" style="font-size: 25px;">{{ i.date_created.strftime("%B,") }} {{ day }} {{ i.date_created.strftime("%A") }}</h1><br>
+          <h1 class="display-4" style="font-size: 25px;">{{ moment(i.date_created).format('MMMM, D dddd') }}</h1><br>
           {% break %}
         {% endfor %}
         <table class="table">
@@ -108,14 +119,10 @@
               <tr>
                 <th scope="row">{{ count.value }}</th>
                 {% set count.value = count.value + 1 %}
-                {% if i.category == 'Развлечения' %}
-                  <td><span class="material-icons">sports_esports</span> {{ i.category }}</td>
-                {% elif i.category == 'Продукты' %}
-                  <td><span class="material-icons">restaurant</span>  {{ i.category }}</td>
-                {% endif %}
+                <td><span class="material-icons">restaurant</span>  {{ i.category }}</td>
                 <td>{{ i.product }}</td>
                 <td>{{ i.price }} UAH</td>
-                <td>{{ i.date_created.strftime("%H:%M") }}</td>
+                <td><span id="time">{{ moment(i.date_created).format('hh:mm') }}</span></td>
               </tr>
             {% endfor %}
           </tbody>
@@ -123,7 +130,8 @@
         {% set count.value = 1 %}
         {% endfor %}
     </div>
-    
+
+    <h1>{{ uid }}</h1>
 
     <!-- JS -->
     <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>
