@@ -1,0 +1,1 @@
+DATABASE_URL=postgresql://admin:mysecretpassword@db:5432/postgres

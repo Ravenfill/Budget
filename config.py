@@ -3,12 +3,13 @@ DEBUG = True
 
 # Define the application directory
 import os
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))  
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Define the database - we are working with
 # SQLite for this example
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR + '/app/database/', 'app.db')
-SQLALCHEMY_DATABASE_URI = 'postgresql://wfkgihbz:XHWCc1eJGmYH_dSvndkO_wGPigtVcvSP@rogue.db.elephantsql.com/wfkgihbz'
+#SQLALCHEMY_DATABASE_URI = 'postgresql://admin:mysecretpassword@172.21.0.2:5432/postgres'
+SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
 #DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. A common general assumption is
@@ -21,8 +22,8 @@ THREADS_PER_PAGE = 2
 CSRF_ENABLED     = True
 
 # Use a secure, unique and absolutely secret key for
-# signing the data. 
-CSRF_SESSION_KEY = "secret"
+# signing the data.
+CSRF_SESSION_KEY = "\xed\xc2\xc2\x8bC9\x93\x9e)}\xac\x0f;\xc8\xa9a\x8e\x03\xdbr\xbf\x0blQ\x7f\xb8f\x08\xb3U\n\xc8"
 
 # Secret key for signing cookies
-SECRET_KEY = "secret"
+SECRET_KEY = "\xed\xc2\xc2\x8bC9\x93\x9e)}\xac\x0f;\xc8\xa9a\x8e\x03\xdbr\xbf\x0blQ\x7f\xb8f\x08\xb3U\n\xc8"
