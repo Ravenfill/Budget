@@ -7,8 +7,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Define the database - we are working with
 # SQLite for this example
-#SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR + '/app/database/', 'app.db')
-SQLALCHEMY_DATABASE_URI = 'postgresql://wfkgihbz:XHWCc1eJGmYH_dSvndkO_wGPigtVcvSP@rogue.db.elephantsql.com/wfkgihbz'
+SQLALCHEMY_DATABASE_URI = 'postgresql://testing:test123@16.170.36.92:5432/testing'
 #DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. A common general assumption is
