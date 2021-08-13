@@ -15,34 +15,46 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # Main dashboard route
-@board.route('/', methods=['POST', 'GET'])
+@board.route('', methods=['POST', 'GET'])
 @login_required
 def dashboard():
-    monthly_expences = 0
     form = AddExpenceForm()
+    
     # Adding new items
     if form.validate_on_submit():
         new_item = Expences(category=form.category_select.data, product=form.product_name.data, price=form.price_value.data, user=current_user.id)
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('dashboard.dashboard'))
+    
     # Rendering everything out
     else:
-        items = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
-        exps = MonthlyExps.query.filter_by(user=current_user.id).first()
-        date = datetime.now()
-        for item in items:
-            if item.date_created.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d") and exps.date_updated.now().strftime("%Y-%m-%d") != datetime.now().strftime("%Y-%m-%d"):
-                exps.monthly_expences += item.price
-            if item.date_created.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d") and exps.date_updated.now().strftime("%Y-%m-%d") == datetime.now().strftime("%Y-%m-%d"):
-                exps.previous_month_exps = exps.monthly_expences
-                exps.monthly_expences = 0
-                exps.monthly_expences += item.price
-                exps.date_updated = datetime.utcnow()
+        # Initializing db models
+        page = request.args.get('page', 1, type=int)
+        exps = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
+        expences = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).paginate(per_page=5, page=page, error_out=True)
+        mon_exps = MonthlyExps.query.filter_by(user=current_user.id).first()
+        
+        # Calculating monthly expences
+        monthly_expences = 0
+        prev_month_exps = 0
+        pprev_month = (datetime.utcnow().replace(day=1) - timedelta(days=1)).replace(day=1) - timedelta(days=1)
+        for exp in exps:
+            if exp.date_created.utcnow().strftime("%Y-%m") == datetime.utcnow().strftime("%Y-%m"):
+                monthly_expences += exp.price
+            elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > pprev_month:
+                prev_month_exps += exp.price
+                
+            if mon_exps.date_updated.strftime("%Y-%m-%d") < datetime.utcnow().strftime("%Y-%m-%d"):
+                mon_exps.monthly_expences = monthly_expences
+                mon_exps.previous_month_exps = prev_month_exps
+                mon_exps.date_updated = datetime.utcnow()
 
+        # Rendering
         return render_template(
             'dashboard/dashboard.html',
-            items=items, exps=exps, form=form,
-            date = date,
-            prev_month = date.today().replace(day=1) - timedelta(days=1)
+            expences=expences, mon_exps=mon_exps, form=form,
+            prev_month = datetime.today().replace(day=1) - timedelta(days=1),
+            monthly_expences=monthly_expences,
+            prev_month_exps=prev_month_exps,
             )
