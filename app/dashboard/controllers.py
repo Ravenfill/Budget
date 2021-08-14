@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from wtforms.fields.core import Label
 from app import db
 from app.dashboard.models import Expences, MonthlyExps
 from app.dashboard.forms import AddExpenceForm
@@ -39,9 +40,23 @@ def dashboard():
         monthly_expences = 0
         prev_month_exps = 0
         pprev_month = (datetime.utcnow().replace(day=1) - timedelta(days=1)).replace(day=1) - timedelta(days=1)
+
+        exps_per_category = {
+            'Продукты': 0,
+            'Развлечения': 0,
+            'Налоги': 0,
+            'Путешествия': 0,
+            'Животние': 0,
+            'Одежда': 0,
+            'Транспорт': 0,
+            'Медицина': 0,
+            'Непредвиденные расходы': 0,
+        }
+
         for exp in exps:
             if exp.date_created.utcnow().strftime("%Y-%m") == datetime.utcnow().strftime("%Y-%m"):
                 monthly_expences += exp.price
+                exps_per_category[exp.category] += exp.price
             elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > pprev_month:
                 prev_month_exps += exp.price
                 
@@ -49,6 +64,14 @@ def dashboard():
                 mon_exps.monthly_expences = monthly_expences
                 mon_exps.previous_month_exps = prev_month_exps
                 mon_exps.date_updated = datetime.utcnow()
+        
+        data = []
+        for key in exps_per_category:
+            if exps_per_category[key] != 0:
+                data.append((key, exps_per_category[key]) )
+
+        labels = [row[0] for row in data]
+        values = [row[1] for row in data]
 
         # Rendering
         return render_template(
@@ -57,4 +80,5 @@ def dashboard():
             prev_month = datetime.today().replace(day=1) - timedelta(days=1),
             monthly_expences=monthly_expences,
             prev_month_exps=prev_month_exps,
+            labels=labels, values=values,
             )

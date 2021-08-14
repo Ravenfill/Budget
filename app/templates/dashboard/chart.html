@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"
+     integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==" 
+     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Chart</title>
+  </head>
+  <body>
+    <div style="position: relative; height:10vh; width:20vw">
+      <canvas id="chart"></canvas>
+    </div>
+    <script>
+      // get canvas where chart will be drown
+      var ctx = document.getElementById('chart');
+      // data const
+      const data = {
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltips: {
+              enabled: false
+            },
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+        labels: {{ labels | safe }},
+        datasets: [{
+          label: 'Data info',
+          data: {{ values | safe }},
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(30, 235, 85)',
+          ],
+        }],
+      };
+      // configure data and chart type
+      const config = {
+        type: 'doughnut',
+        data: data,
+      };
+      // draw the chart
+      var myChart = new Chart(ctx, config)
+    </script>
+  </body>
+</html>
