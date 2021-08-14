@@ -42,17 +42,31 @@
         </div>
     </nav>
     <div class="form-center text-center">
-<form method="POST", action="/signin">
-    <h1 class="display-1" style="font-size: 40px;">Вход</h1><hr>
-    {{ form.hidden_tag() }}
-    <h1 class="display-4" style="font-size: 20px;">Логин:</h1>
-    {{ form.username(class_="form-control form-control-sm") }}<br>
-    <h1 class="display-4" style="font-size: 20px;">Пароль:</h1>
-    {{ form.password(class_="form-control form-control-sm") }}<br>
-    {{ form.remember(class_="form-control form-control-sm") }}<a>Запомнить меня</a><br><br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти в аккаунт</button>
-    <br>
+
+
+    <!--
+        Сообщение об ошибке
+        Поставь его кравиво
+    -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h1>{{ message }}</h1>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST", action="/signin">
+        <h1 class="display-1" style="font-size: 40px;">Вход</h1><hr>
+        {{ form.hidden_tag() }}
+        <h1 class="display-4" style="font-size: 20px;">Логин:</h1>
+        {{ form.username(class_="form-control form-control-sm") }}<br>
+        <h1 class="display-4" style="font-size: 20px;">Пароль:</h1>
+        {{ form.password(class_="form-control form-control-sm") }}<br>
+        {{ form.remember(class_="form-control form-control-sm") }}<a>Запомнить меня</a><br><br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти в аккаунт</button>
+        <br>
         <h1 class="display-4" style="font-size: 20px;">Нет аккаунта? <a href="signup">Зарегистрируйтесь</a></h1>
-</form>
+    </form>
 </div>
 </body>

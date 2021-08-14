@@ -43,11 +43,21 @@
             </div>
         </div>
     </nav>
-    <!-- Форма реги3трации -->
+    <!-- Форма региcтрации -->
 
+    <!--
+        Сообщение об ошибке
+        Поставь его кравиво
+    -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h1>{{ message }}</h1>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     <div class="form-center text-center">
-    
     <form method="POST", action="/signup">
         <h1 class="display-1" style="font-size: 40px;">Регистрация</h1><hr>
         {{ form.hidden_tag() }}

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app.auth.forms import SignInForm, SignUpForm
 from app.auth.models import User
 from app.dashboard.models import MonthlyExps
@@ -18,6 +18,10 @@ def signin():
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard.dashboard'))
+            else:
+                flash('Password is incorrect')
+        else:
+            flash('User does not exist')
 
     return render_template('/auth/signin.html', form=form)
 
@@ -27,19 +31,21 @@ def signup():
 
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='sha256')
-        new_user = User(username=form.username.data, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user, remember=False)
-        exps = MonthlyExps(user=new_user.id)
-        db.session.add(exps)
-        db.session.commit()
-        return redirect(url_for('dashboard.dashboard'))
-
+        try:
+            new_user = User(username=form.username.data, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user, remember=False)
+            exps = MonthlyExps(user=new_user.id)
+            db.session.add(exps)
+            db.session.commit()
+            return redirect(url_for('dashboard.dashboard'))
+        except:
+            flash('User already exists')
     return render_template('/auth/signup.html', form=form)
 
 @auth.route('/signout')
 @login_required
 def signout():
     logout_user()
-    return redirect(url_for('dashboard.dashboard'))
+    return redirect(url_for('auth.signin'))
