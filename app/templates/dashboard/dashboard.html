@@ -30,15 +30,18 @@
     <link rel="stylesheet" href="static/css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-  
+      <script src="{{url_for('static', filename='../static/js/icons.js')}}"></script>
     <title>Budget</title>
 </head>
 
 <!-- 25.07.2021 - Макс, ты можешь в комментах меньше матов писать?-->
 <!-- 25.07.2021 - Нет блять -->
 <!-- 13.08.2021 - Eбучая Jinja!!!!! -->
+<!-- 14.08.2021 - А прикинь что это кто-то читает. 
+  Если что инста чуть выше)-->
 
 <body>
+  <div class="main">
     <!--Header-->
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
         <div class="container-fluid">
@@ -65,8 +68,8 @@
     </nav>
 
     <!--Total-->
-    <div class="container-fluid">
-        <div class="alert text-center">
+    <div class="container-fluid chart_div">
+        <div class="text-center">
           <div class="row xz">
            <div class="col-xs-6 col-md-6 xz2">
             <h1 class="display-4" style="font-size:50px">Общие затраты за {{ moment(mon_exps.date_updated).format('MMMM') }} - {{  monthly_expences }} UAH</h1>
@@ -78,7 +81,7 @@
             {% endif %}
           </div>
           <!-- Grapth canvas -->
-            <div style="width: 500px; height: 400px;">
+            <div class="">
               <canvas id="chart"></canvas>
             </div>
         </div>
@@ -111,7 +114,6 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Категория</th>
               <th scope="col">Продукт</th>
               <th scope="col">Цена</th>
@@ -122,8 +124,7 @@
             {% for expence in expences.items %}
               <tr>
                 <!-- Здесь должен быть номер -->
-                <th scope="row">i</th>
-                <td><span class="material-icons">restaurant</span>  {{ expence.category }}</td>
+                <td><span id="icon_name" class="material-icons"></span> {{ expence.category }}</td>
                 <td>{{ expence.product }}</td>
                 <td>{{ expence.price }} UAH</td>
                 <td><span id="time">{{ moment(expence.date_created).format('hh:mm') }}</span></td>
@@ -132,61 +133,62 @@
           </tbody>
         </table>
       {% endfor %}
-        
+      <nav style="display: flex; justify-content:center">
+        <ul class="pagination">
       {% for page_num in expences.iter_pages() %}
         {% if page_num %}
           {% if expences.page == page_num %}
             <!-- Сюда встать стиль для текущей страници -->
-            <a href="{{ url_for('dashboard.dashboard', page=page_num) }}">{{ page_num }}</a>
+            <li class="page-item active"><a class="page-link"  href="{{ url_for('dashboard.dashboard', page=page_num) }}">{{ page_num }}</a></li>
           {% else %}
             <!-- А сюда для остальных -->
-            <a href="{{ url_for('dashboard.dashboard', page=page_num) }}">{{ page_num }}</a>
+            <li class="page-item"> <a class="page-link"  href="{{ url_for('dashboard.dashboard', page=page_num) }}">{{ page_num }}</a> </li>
           {% endif %}
         {% endif %}
       {% endfor %}
+    </ul>
+  </nav>
     </div>
 
     <!-- JS -->
     <!-- Скрипт графика -->
-    <script>
-      // get canvas where chart will be drown
-      var ctx = document.getElementById('chart');
-      // data const
-      const data = {
-        options: {
-          plugins: {
-            legend: {
-              display: false,
-            },
-            tooltips: {
-              enabled: false
-            },
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-        },
+    <canvas id="myChart" width="200px" height="200px"></canvas>
+<script>
+var ctx = document.getElementById('chart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
         labels: {{ labels | safe }},
+      
         datasets: [{
-          label: 'Data info',
-          data: {{ values | safe }},
-          backgroundColor: [
+            label: '',
+            data: {{ values | safe }},
+            backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
             'rgb(255, 205, 86)',
             'rgb(30, 235, 85)',
-          ],
-        }],
-      };
-      // configure data and chart type
-      const config = {
-        type: 'doughnut',
-        data: data,
-      };
-      // draw the chart
-      var myChart = new Chart(ctx, config)
-    </script>
+            ],
+
+        }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins:{
+        legend: {
+          display: false
+      },
+      
+      
+      },     
+    }
+});
+</script>
 
     <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>
-
+    
+  </div>
   </body>
+  
 </html>
