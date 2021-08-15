@@ -40,6 +40,16 @@ input{
     
 }
 
+
+.chart_class{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5vh;
+}
+
+
+
 #form-add{
     margin-top: 30px;
 }
@@ -105,5 +115,8 @@ input{
     #air{
         width: 11500px;
     }
+   
 }
+
+
 

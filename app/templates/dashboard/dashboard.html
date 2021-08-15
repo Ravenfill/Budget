@@ -81,7 +81,7 @@
             {% endif %}
           </div>
           <!-- Grapth canvas -->
-            <div class="">
+            <div style="padding-top: 10px;" class="chart_class">
               <canvas id="chart"></canvas>
             </div>
         </div>
@@ -89,23 +89,29 @@
     </div>
      
     <!-- Form for adding new expence -->
-    <div class="container-fluid form-container" id="form-add">
+    
+    <div  class="container-fluid form-container" id="form-add">
       <form method="POST">
         {{ form.hidden_tag() }}
         {{ form.category_select(class_="form-control form-my ") }}<br>
         {{ form.product_name(class_="form-control form-control-sm form-my", placeholder="Продукт") }}<br>
         {{ form.price_value(class_="form-control form-control-sm form-my",  placeholder="Цена") }}<br>
-        {{ form.submit(class_="btn new-button btn-primary mb-2") }}
+        <div style="display: flex;">
+        {{ form.submit(class_="btn new-button btn-primary") }}
+        <a onclick="close_form()" style="cursor: pointer;"><span class="material-icons">
+          close
+          </span></a>
+      </div>
       </form>
      </div>
     
     <!--ADD BTN-->
-    <div class="container-fluid text-right">
+    <div style="padding-top: 50px;" class="container-fluid text-right">
         <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="static/img/add_black_24dp.svg" alt=""> новый платеж</button><br><br>
     </div>
     
     <!--table-->
-    <div class="container-fluid text-left">
+    <div  class="container-fluid text-left">
       {% for day, expence in expences.items|groupby("date_created.month")|reverse %}
         {% for i in expence %}
           <h1 class="display-4" style="font-size: 25px;">{{ moment(i.date_created).format('MMMM, D dddd') }}</h1><br>
@@ -164,10 +170,15 @@ var myChart = new Chart(ctx, {
             label: '',
             data: {{ values | safe }},
             backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
-            'rgb(30, 235, 85)',
+            'rgb(169, 222, 249)',
+            'rgb(228, 193, 249)',
+            'rgb(208, 244, 222)',
+            'rgb(175, 187, 242)',
+            'rgb(252, 246, 189)',
+            'rgb(233, 124, 97)', // этот и дальше цвета заменить
+            'rgb(235, 136, 111)',
+            'rgb(237, 147, 124)',
+            'rgb(239, 157, 136)',
             ],
 
         }]
