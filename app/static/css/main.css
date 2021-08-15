@@ -13,6 +13,24 @@ body{
     justify-content: center;
 }
 
+input{
+  
+    
+  }
+  .form-my:focus{font-size:16px;}
+
+  .form-my{
+      border-radius: 0px;
+    border:none;
+    border-bottom:  1px solid #000;
+    background: none;
+    color: #000;
+    padding: 10px;
+    outline:none !important;
+    text-decoration: none;
+    appearance: none;
+  }
+
 .form-center{
     display: flex; 
     justify-content: center;
@@ -20,6 +38,23 @@ body{
     width: 100%;
     height: 90vh;
     
+}
+
+#form-add{
+    margin-top: 30px;
+}
+
+.new-button{
+    font-size: 12px;
+    background: none;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.new-button:hover{
+    cursor: pointer;
+    background-color: whitesmoke;
+    color: black;
 }
 
 .error404{

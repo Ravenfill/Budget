@@ -62,10 +62,10 @@
         <h1 class="display-1" style="font-size: 40px;">Регистрация</h1><hr>
         {{ form.hidden_tag() }}
         <h1 class="display-4" style="font-size: 20px;">Логин:</h1>
-        {{ form.username}}<br><br>
+        {{ form.username(class_="form-control form-my form-control-sm")}}<br><br>
         <h1 class="display-4" style="font-size: 20px;">Пароль:</h1>
-        {{ form.password }}<br><br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Создать аккаунт</button>
+        {{ form.password(class_="form-control form-my form-control-sm") }}<br><br>
+        <button class="btn new-button btn-lg btn-primary btn-block" type="submit">Создать аккаунт</button>
         <br>
         <h1 class="display-4" style="font-size: 20px;">Имеете аккаунт? <a href="signin"> Войдите</a></h1>
     </form>
