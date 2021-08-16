@@ -47,7 +47,7 @@ def signup():
         elif len(form.username.data) < 4:
             flash(gettext('Имя пользователя слишком короткое'))
         elif len(form.password.data) < 4:
-            flash(gettext('Пароль'))
+            flash(gettext('Пароль слишком короткий'))
     return render_template('/auth/signup.html', form=form)
 
 @auth.route('/signout')
