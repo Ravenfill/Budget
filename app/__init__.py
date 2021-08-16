@@ -38,8 +38,9 @@ def internal_server_error(e):
 # Babel locales
 @babel.localeselector
 def get_locale():
-  return request.accept_languages.best_match(app.config['LANGUAGES'])
-  
+  #return request.accept_languages.best_match(app.config['LANGUAGES'])
+  return 'uk'
+
 # Main routes
 @app.route('/')
 def index():
