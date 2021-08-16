@@ -1,0 +1,134 @@
+# German translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-08-16 19:36+0300\n"
+"PO-Revision-Date: 2021-08-16 19:55+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: auth/controllers.py:23
+msgid "Неверный пароль"
+msgstr ""
+
+#: auth/controllers.py:25
+msgid "Пользователь не зарегестрирован"
+msgstr ""
+
+#: auth/controllers.py:46
+msgid "Пользователь уже существует"
+msgstr ""
+
+#: auth/controllers.py:48
+msgid "Имя пользователя слишком короткое"
+msgstr ""
+
+#: auth/controllers.py:50
+msgid "Пароль слишком короткий"
+msgstr ""
+
+#: templates/auth/signin.html:8 templates/auth/signin.html:60
+msgid "Вход"
+msgstr ""
+
+#: templates/auth/signin.html:32 templates/auth/signup.html:33
+msgid "Главная"
+msgstr ""
+
+#: templates/auth/signin.html:35 templates/auth/signup.html:38
+msgid "Профиль"
+msgstr ""
+
+#: templates/auth/signin.html:38
+msgid "Настройки"
+msgstr ""
+
+#: templates/auth/signin.html:62 templates/auth/signup.html:64
+msgid "Логин:"
+msgstr ""
+
+#: templates/auth/signin.html:64 templates/auth/signup.html:66
+msgid "Пароль:"
+msgstr ""
+
+#: templates/auth/signin.html:66
+msgid "Запомнить меня"
+msgstr ""
+
+#: templates/auth/signin.html:67
+msgid "Войти в аккаунт"
+msgstr ""
+
+#: templates/auth/signin.html:69
+msgid "Нет аккаунта?"
+msgstr ""
+
+#: templates/auth/signin.html:69
+msgid "Зарегистрируйтесь"
+msgstr ""
+
+#: templates/auth/signup.html:8 templates/auth/signup.html:62
+msgid "Регистрация"
+msgstr ""
+
+#: templates/auth/signup.html:68
+msgid "Создать аккаунт"
+msgstr ""
+
+#: templates/auth/signup.html:70
+msgid "Имеете аккаунт?"
+msgstr ""
+
+#: templates/auth/signup.html:70
+msgid "Войдите"
+msgstr ""
+
+#: templates/errorcodes/404.html:20
+msgid "Ошибка 404!"
+msgstr ""
+
+#: templates/errorcodes/404.html:27
+msgid "Здесь ничего нет."
+msgstr ""
+
+#: templates/errorcodes/404.html:28
+msgid "Возможно вы хотите вернуться на"
+msgstr ""
+
+#: templates/errorcodes/404.html:28
+msgid "главную страницу"
+msgstr ""
+
+#: templates/errorcodes/500.html:20
+msgid "Ошибка 500!"
+msgstr ""
+
+#: templates/errorcodes/500.html:27
+msgid "Ошибка сервера"
+msgstr ""
+
+#: templates/errorcodes/500.html:28
+msgid ""
+"На сервере произошла непредвиденная ошибка. Пожалуйста, подождите; она "
+"вскоре будет исправлена"
+msgstr ""
+
+#: templates/errorcodes/500.html:29
+msgid "Попробуйте"
+msgstr ""
+
+#: templates/errorcodes/500.html:29
+msgid "вернуться на главную страницу"
+msgstr ""
+
