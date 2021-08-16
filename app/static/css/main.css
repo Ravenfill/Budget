@@ -111,11 +111,25 @@ input{
 }
 }
 
-@media(max-width:500){
-    #air{
-        width: 11500px;
+@media(max-width:500px){
+    canvas{
+        margin-left: 2.5vh;
     }
-   
+
+    .display-4{
+        font-size: 30px !important;
+        margin-top: 20px;
+    }
+
+    .smallest{
+        font-size: 20px !important;
+       
+    }
+
+    .text-right{
+        text-align: center !important;
+    }
+ 
 }
 
 
