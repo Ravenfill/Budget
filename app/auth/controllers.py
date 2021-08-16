@@ -31,22 +31,23 @@ def signup():
     form = SignUpForm()
 
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='sha256')
-        try:
-            new_user = User(username=form.username.data, password=hashed_password)
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user, remember=False)
-            exps = MonthlyExps(user=new_user.id)
-            db.session.add(exps)
-            db.session.commit()
-            return redirect(url_for('dashboard.dashboard'))
-        except:
-            flash(gettext('Пользователь уже существует'))
-    elif len(form.username.data) < 4:
-        flash(gettext('Имя пользователя слишком короткое'))
-    elif len(form.password.data) < 4:
-        flash(gettext('Пароль'))
+        if len(form.username.data) > 4 and len(form.password.data) > 4:
+            hashed_password = generate_password_hash(form.password.data, method='sha256')
+            try:
+                new_user = User(username=form.username.data, password=hashed_password)
+                db.session.add(new_user)
+                db.session.commit()
+                login_user(new_user, remember=False)
+                exps = MonthlyExps(user=new_user.id)
+                db.session.add(exps)
+                db.session.commit()
+                return redirect(url_for('dashboard.dashboard'))
+            except:
+                flash(gettext('Пользователь уже существует'))
+        elif len(form.username.data) < 4:
+            flash(gettext('Имя пользователя слишком короткое'))
+        elif len(form.password.data) < 4:
+            flash(gettext('Пароль'))
     return render_template('/auth/signup.html', form=form)
 
 @auth.route('/signout')
