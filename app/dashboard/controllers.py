@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from wtforms.fields.core import Label
 from app import db
 from app.dashboard.models import Expences, MonthlyExps
 from app.dashboard.forms import AddExpenceForm
@@ -7,6 +6,7 @@ from datetime import datetime, timedelta
 from app import login_manager
 from flask_login import login_required, current_user
 from app.auth.models import User
+from flask_babel import gettext
 
 board = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
@@ -16,7 +16,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # Main dashboard route
-@board.route('', methods=['POST', 'GET'])
+@board.route('/', methods=['POST', 'GET'])
 @login_required
 def dashboard():
     form = AddExpenceForm()

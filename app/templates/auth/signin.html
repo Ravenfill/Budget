@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход</title>
+    <title>{{ _('Вход') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="static/css/main.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -29,13 +29,13 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li id="nav-item-up" class="nav-item active">
-                        <a href="#" class="nav-link"><img src="static/img/home_black_24dp.svg" alt=""> Главная</a>
+                        <a href="#" class="nav-link"><img src="static/img/home_black_24dp.svg" alt=""> {{ _('Главная') }}</a>
                     </li>
                     <li id="nav-item-down" class="nav-item">
-                        <a href="#" class="nav-link"><img src="static/img/account_circle_black_24dp.svg" alt=""> Профиль </a> <!--имя профиля будет мб-->
+                        <a href="#" class="nav-link"><img src="static/img/account_circle_black_24dp.svg" alt=""> {{ _('Профиль') }} </a> <!--имя профиля будет мб-->
                     </li>
                     <li id="nav-item-down" class="nav-item">
-                        <a href="#" class="nav-link"><img src="static/img/settings_black_24dp.svg" alt=""> Настройки</a>
+                        <a href="#" class="nav-link"><img src="static/img/settings_black_24dp.svg" alt=""> {{ _('Настройки') }}</a>
                     </li>
                 </ul>
             </div>
@@ -57,16 +57,16 @@
     {% endwith %}
 
     <form method="POST", action="/signin">
-        <h1 class="display-1" style="font-size: 40px;">Вход</h1><hr>
+        <h1 class="display-1" style="font-size: 40px;">{{ _('Вход') }}</h1><hr>
         {{ form.hidden_tag() }}
-        <h1 class="display-4" style="font-size: 20px;">Логин:</h1>
+        <h1 class="display-4" style="font-size: 20px;">{{ _('Логин:') }}</h1>
         {{ form.username(class_="form-control form-my form-control-sm") }}<br>
-        <h1 class="display-4" style="font-size: 20px;">Пароль:</h1>
+        <h1 class="display-4" style="font-size: 20px;">{{ _('Пароль:') }}</h1>
         {{ form.password(class_="form-control form-my form-control-sm") }}<br>
-        {{ form.remember(class_="form-control form-control-sm") }}<a>Запомнить меня</a><br><br>
-        <button class="btn new-button btn-lg btn-primary btn-block" type="submit">Войти в аккаунт</button>
+        {{ form.remember(class_="form-control form-control-sm") }}<a>{{ _('Запомнить меня') }}</a><br><br>
+        <button class="btn new-button btn-lg btn-primary btn-block" type="submit">{{ _('Войти в аккаунт') }}</button>
         <br>
-        <h1 class="display-4" style="font-size: 20px;">Нет аккаунта? <a href="signup">Зарегистрируйтесь</a></h1>
+        <h1 class="display-4" style="font-size: 20px;">{{ _('Нет аккаунта?') }} <a href="signup">{{ _('Зарегистрируйтесь') }}</a></h1>
     </form>
 </div>
 </body>

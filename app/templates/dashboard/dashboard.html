@@ -52,10 +52,10 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li id="nav-item-up" class="nav-item active">
-                        <a href="#" class="nav-link"><img src="static/img/home_black_24dp.svg" alt=""> Главная</a>
+                        <a href="#" class="nav-link"><img src="static/img/home_black_24dp.svg" alt="">{{ _('Главная') }}</a>
                     </li>
                     <li id="nav-item-down" class="nav-item">
-                        <a href="#" class="nav-link"><img src="static/img/account_circle_black_24dp.svg" alt=""> Профиль </a> <!--имя профиля будет мб-->
+                        <a href="#" class="nav-link"><img src="static/img/account_circle_black_24dp.svg" alt="">{{ _('Профиль') }}</a> <!--имя профиля будет мб-->
                     </li>
                     <li id="nav-item-down" class="nav-item">
                         <a href="{{ url_for('auth.signout') }}" class="nav-link"><span class="material-icons"> login
@@ -158,7 +158,7 @@
 
     <!-- JS -->
     <!-- Скрипт графика -->
-    <canvas id="myChart" width="200px" height="200px"></canvas>
+   <canvas id="myChart" width="200px" height="200px"></canvas>
 <script>
 var ctx = document.getElementById('chart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -196,7 +196,6 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
-
     <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>
     
   </div>

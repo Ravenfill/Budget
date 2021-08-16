@@ -5,6 +5,7 @@ from app.dashboard.models import MonthlyExps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from app import db
+from flask_babel import gettext
 
 auth = Blueprint('auth', __name__, url_prefix='/')
 
@@ -19,9 +20,9 @@ def signin():
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard.dashboard'))
             else:
-                flash('Password is incorrect')
+                flash(gettext('Неверный пароль'))
         else:
-            flash('User does not exist')
+            flash(gettext('Пользователь не зарегестрирован'))
 
     return render_template('/auth/signin.html', form=form)
 
@@ -41,7 +42,11 @@ def signup():
             db.session.commit()
             return redirect(url_for('dashboard.dashboard'))
         except:
-            flash('User already exists')
+            flash(gettext('Пользователь уже существует'))
+    elif len(form.username.data) < 4:
+        flash(gettext('Имя пользователя слишком короткое'))
+    elif len(form.password.data) < 4:
+        flash(gettext('Пароль'))
     return render_template('/auth/signup.html', form=form)
 
 @auth.route('/signout')

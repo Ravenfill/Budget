@@ -25,3 +25,7 @@ CSRF_SESSION_KEY = "secret"
 
 # Secret key for signing cookies
 SECRET_KEY = "secret"
+
+BABEL_DEFAULT_LOCALE = 'en'
+
+LANGUAGES = ['ru', 'en', 'uk', 'de']
