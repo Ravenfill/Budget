@@ -112,9 +112,9 @@
     
     <!--table-->
     <div  class="container-fluid text-left">
-      {% for day, expence in expences.items|groupby("date_created.month")|reverse %}
-        {% for i in expence %}
-          <h1 class="display-4" style="font-size: 25px;">{{ moment(i.date_created).format('MMMM, D dddd') }}</h1><br>
+      {% for day, expence in expences.items|groupby("date_created.day")|reverse %}
+        {% for exp in expence %}
+          <h1 class="display-4" style="font-size: 25px;">{{ moment(exp.date_created).format('MMMM, D dddd') }}</h1><br>
           {% break %}
         {% endfor %}
         <table class="table">
@@ -127,13 +127,12 @@
             </tr>
           </thead>
           <tbody>  
-            {% for expence in expences.items %}
+            {% for exp in expence %}
               <tr>
-                <!-- Здесь должен быть номер -->
-                <td><span id="icon_name" class="material-icons"></span> {{ expence.category }}</td>
-                <td>{{ expence.product }}</td>
-                <td>{{ expence.price }} UAH</td>
-                <td><span id="time">{{ moment(expence.date_created).format('hh:mm') }}</span></td>
+                <td><span id="icon_name" class="material-icons"></span> {{ exp.category }}</td>
+                <td>{{ exp.product }}</td>
+                <td>{{ exp.price }} UAH</td>
+                <td><span id="time">{{ moment(exp.date_created).format('hh:mm') }}</span></td>
               </tr>
             {% endfor %}
           </tbody>
