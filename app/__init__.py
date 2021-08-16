@@ -39,7 +39,7 @@ def internal_server_error(e):
 @babel.localeselector
 def get_locale():
   #return request.accept_languages.best_match(app.config['LANGUAGES'])
-  return 'uk'
+  return 'de'
 
 # Main routes
 @app.route('/')
