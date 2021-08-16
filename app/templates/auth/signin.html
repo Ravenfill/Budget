@@ -48,15 +48,11 @@
         Сообщение об ошибке
         Поставь его кравиво
     -->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <h1>{{ message }}</h1>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    
 
     <form method="POST", action="/signin">
+       
+
         <h1 class="display-1" style="font-size: 40px;">{{ _('Вход') }}</h1><hr>
         {{ form.hidden_tag() }}
         <h1 class="display-4" style="font-size: 20px;">{{ _('Логин:') }}</h1>
@@ -67,6 +63,15 @@
         <button class="btn new-button btn-lg btn-primary btn-block" type="submit">{{ _('Войти в аккаунт') }}</button>
         <br>
         <h1 class="display-4" style="font-size: 20px;">{{ _('Нет аккаунта?') }} <a href="signup">{{ _('Зарегистрируйтесь') }}</a></h1>
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <hr>
+                <h1 class="display-4" style="color: red; font-size: 20px">{{ message }}</h1>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
     </form>
 </div>
 </body>
