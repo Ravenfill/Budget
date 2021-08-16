@@ -75,7 +75,7 @@
             <h1 class="display-4" style="font-size:50px">Общие затраты за {{ moment(mon_exps.date_updated).format('MMMM') }} - {{  monthly_expences }} UAH</h1>
             {% set previous = monthly_expences - prev_month_exps %}
             {% if monthly_expences > prev_month_exps %}
-              <h1 class="display-4" style="font-size:25px">+ {{ previous }} UAH по сравнению с {{ moment(prev_month).format('MMMM') }}</h1>
+              <h1 class="display-4 smallest" style="font-size:25px">+ {{ previous }} UAH по сравнению с {{ moment(prev_month).format('MMMM') }}</h1>
             {% else %}
               <h1 class="display-4" style="font-size:25px">- {{ previous }} UAH по сравнению с {{ moment(prev_month).format('MMMM') }}</h1>
             {% endif %}
