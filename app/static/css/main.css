@@ -1,5 +1,5 @@
 body{
-    background-color: whitesmoke;
+
 }
 .navbar-nav li{
     padding-right: 20px;
@@ -45,7 +45,8 @@ input{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 5vh;
+    
+    text-align: center;
 }
 
 
@@ -98,8 +99,7 @@ input{
 @media(min-width: 770px){
 .xz{
     margin-left: 30vh;
-    margin-top: 10px;
-    
+    margin-top: 10px;   
 }
 
 .form-container input{
@@ -109,13 +109,27 @@ input{
 .xz2{
  margin-top: 10vh;
 }
+
+.cost-table{
+    width: 95%;
+    text-align: center;
 }
 
-@media(max-width:500px){
-    canvas{
-        margin-left: 2.5vh;
-    }
+.table_head{
+    padding-right: 30px !important;
+}
 
+}
+
+
+
+
+@media(max-width:500px){
+    .chart_class{
+        margin-left: 15%;
+    }
+   
+    
     .display-4{
         font-size: 30px !important;
         margin-top: 20px;
