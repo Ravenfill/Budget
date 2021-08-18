@@ -29,3 +29,10 @@ SECRET_KEY = "secret"
 BABEL_DEFAULT_LOCALE = 'en'
 
 LANGUAGES = ['ru', 'en', 'uk', 'de']
+
+# Session
+#USE_SESSION_FOR_NEXT = True
+
+# Coockies setup
+REMEMBER_COOKIE_NAME = 'budget'
+REMEMBER_COOKIE_SECURE = False
