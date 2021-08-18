@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, g
 from app.auth.forms import SignInForm, SignUpForm
 from app.auth.models import User
 from app.dashboard.models import MonthlyExps
@@ -7,8 +7,17 @@ from flask_login import login_user, login_required, logout_user, current_user
 from app import db
 from flask_babel import gettext
 
-auth = Blueprint('auth', __name__, url_prefix='/')
+auth = Blueprint('auth', __name__, url_prefix='/<lang_code>')
 
+@auth.url_defaults
+def add_language_code(endpoint, values):
+    values.setdefault('lang_code', g.lang_code)
+
+@auth.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    g.lang_code = values.pop('lang_code')
+
+@auth.route('/', methods=['GET', 'POST'])
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     form = SignInForm()

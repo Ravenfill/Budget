@@ -50,7 +50,7 @@
     -->
     
 
-    <form method="POST", action="/signin">
+    <form method="POST", action="{{ url_for('auth.signin') }}">
        
 
         <h1 class="display-1" style="font-size: 40px;">{{ _('Вход') }}</h1><hr>

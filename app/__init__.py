@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_manager
 from flask_moment import Moment
@@ -42,12 +42,14 @@ def make_session_permanent():
 # Babel locales
 @babel.localeselector
 def get_locale():
-  return request.accept_languages.best_match(app.config['LANGUAGES'])
-  #return 'uk'
+    if not g.get('lang_code', None):
+        g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
+    return g.lang_code
 
 # Main routes
 @app.route('/')
 def index():
+    g.lang_code = request.accept_languages.best_match(app.config['LANGUAGES'])
     return redirect(url_for('dashboard.dashboard'))
 
 # GARBAGE

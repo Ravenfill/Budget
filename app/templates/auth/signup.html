@@ -58,7 +58,7 @@
     {% endwith %}
 
     <div class="form-center text-center">
-    <form method="POST", action="/signup">
+    <form method="POST", action="{{ url_for('auth.signup') }}">
         <h1 class="display-1" style="font-size: 40px;">{{ _('Регистрация') }}</h1><hr>
         {{ form.hidden_tag() }}
         <h1 class="display-4" style="font-size: 20px;">{{ _('Логин:') }}</h1>

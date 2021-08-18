@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, g
 from app import db
 from app.dashboard.models import Expences, MonthlyExps
 from app.dashboard.forms import AddExpenceForm
@@ -8,7 +8,15 @@ from flask_login import login_required, current_user
 from app.auth.models import User
 from flask_babel import gettext
 
-board = Blueprint('dashboard', __name__, url_prefix='/dashboard')
+board = Blueprint('dashboard', __name__, url_prefix='/<lang_code>/dashboard')
+
+@board.url_defaults
+def add_language_code(endpoint, values):
+    values.setdefault('lang_code', g.lang_code)
+
+@board.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    g.lang_code = values.pop('lang_code')
 
 # Login manager user loader 
 @login_manager.user_loader
@@ -16,6 +24,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # Main dashboard route
+@board.route('/')
 @board.route('/', methods=['POST', 'GET'])
 @login_required
 def dashboard():
