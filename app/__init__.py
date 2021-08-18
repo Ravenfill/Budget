@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_manager
 from flask_moment import Moment
@@ -35,11 +35,15 @@ def page_not_fount(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = False
+
 # Babel locales
 @babel.localeselector
 def get_locale():
-  #return request.accept_languages.best_match(app.config['LANGUAGES'])
-  return 'de'
+  return request.accept_languages.best_match(app.config['LANGUAGES'])
+  #return 'uk'
 
 # Main routes
 @app.route('/')
