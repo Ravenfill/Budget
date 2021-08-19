@@ -90,6 +90,7 @@ def dashboard():
             monthly_expences=monthly_expences,
             prev_month_exps=prev_month_exps,
             labels=labels, values=values,
+            username = current_user.username
             )
 
 @board.route('/profile')
@@ -108,3 +109,7 @@ def profile():
     data = [prev_month_exps, monthly_expences]
 
     return render_template('dashboard/profile.html', data=data)
+
+@board.route('/settings')
+def settings():
+    return render_template('dashboard/settings.html')

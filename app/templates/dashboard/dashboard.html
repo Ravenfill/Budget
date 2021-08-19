@@ -1,207 +1,196 @@
 {{ moment.include_moment()}}
-
 {{ moment.locale(get_locale()) }}
 
 <!DOCTYPE html>
-<lang lang="en">
-<head>
-    <!--
-        ################################
-        # DESIGN BY ovladaettt         #
-        # inst: ovladaettt             # 
-        ################################
+<html lang="en">
+      <!--
+        DESIGNED BY OVLADAET
+        INST: ovladaettt
     -->
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/main.css')}}">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://www.google.com/jsapi"></script>
-    <!-- Chart.js (сука блять йобаный цейво.... график блять )-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"
-     integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==" 
-     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="static/css/main.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-      <script src="{{url_for('static', filename='../static/js/icons.js')}}"></script>
-    <title>Budget</title>
+    <title>Budget - {{ _('Главная') }}</title>
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename = 'css/reset-styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- moment -->
 </head>
-
-<!-- 25.07.2021 - Макс, ты можешь в комментах меньше матов писать?-->
-<!-- 25.07.2021 - Нет блять -->
-<!-- 13.08.2021 - Eбучая Jinja!!!!! -->
-<!-- 14.08.2021 - А прикинь что это кто-то читает. 
-  Если что инста чуть выше)-->
-<!-- 19.08.2021 - Это кото-то читает то мне его жалко -->
-
 <body>
-  <div class="main">
-    <!--Header-->
-    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-        <div class="container-fluid">
-            <a href="url_for(dashboard.dashboard)" style="text-decoration:none" class="navbar-brad"><img width="170px" src="{{url_for('static',filename = 'img/logo.png')}}" alt=""></a>
-            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarResponsive">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li id="nav-item-up" class="nav-item active">
-                        <a href="#" class="nav-link"><img src="{{url_for('static', filename='../static/img/home_black_24dp.svg')}}" alt="">{{ _('Главная') }}</a>
-                    </li>
-                    <li id="nav-item-down" class="nav-item">
-                        <a href="{{ url_for('dashboard.profile') }}" class="nav-link"><img src="{{url_for('static', filename='../static/img/account_circle_black_24dp.svg')}}" alt="">{{ _('Профиль') }}</a> <!--имя профиля будет мб-->
-                    </li>
-                    <li id="nav-item-down" class="nav-item">
-                        <a href="{{ url_for('auth.signout') }}" class="nav-link"><span class="material-icons"> login
-                      
-                          </span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <!-- 19.09.2021 - Я еле нашел форму с вводом -->
 
-    <!--Total-->
-    <div class="container-fluid chart_div">
-        <div class="text-center">
-          <div class="row xz">
-           <div class="col-xs-6 col-md-6 xz2">
-            <h1 class="display-4" style="font-size:50px">Общие затраты за {{ moment(mon_exps.date_updated).format('MMMM') }} - {{  monthly_expences }} UAH</h1>
-            {% set previous = monthly_expences - prev_month_exps %}
-            {% if monthly_expences > prev_month_exps %}
-              <h1 class="display-4 smallest" style="font-size:25px">+ {{ previous }} UAH по сравнению с {{ moment(prev_month).format('MMMM') }}</h1>
-            {% else %}
-              <h1 class="display-4" style="font-size:25px">- {{ previous }} UAH по сравнению с {{ moment(prev_month).format('MMMM') }}</h1>
-            {% endif %}
-          </div>
-          <!-- Grapth canvas -->
-            <div style="padding-top: 10px;" class="chart_class">
-              <canvas id="chart"></canvas>
-            </div>
+    <!-- Экран загрузки -->
+    <div class="preloader">
+        <div class="preloader__row">
+          <div class="preloader__item"></div>
+          <div class="preloader__item"></div>
         </div>
       </div>
+    <div class="personal-area">
+
+        <!--Предупреждение о использлвании Cookie-->
+        <div id="cookie_notification">
+            <p>{{ _('Для улучшения работы сайта и его взаимодействия с пользователями мы используем файлы cookie. Продолжая работу с сайтом, Вы разрешаете использование cookie-файлов. Вы всегда можете отключить файлы cookie в настройках Вашего браузера.') }}</p>
+            <button class="button cookie_accept">{{ _('Принять') }}</button>
     </div>
-     
-    <!-- Form for adding new expence -->
-    
-    <div  class="container-fluid form-container" id="form-add">
-      <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.category_select(class_="form-control form-my ") }}<br>
-        {{ form.product_name(class_="form-control form-control-sm form-my", placeholder="Продукт") }}<br>
-        {{ form.price_value(class_="form-control form-control-sm form-my",  placeholder="Цена") }}<br>
-        <div style="display: flex;">
-        {{ form.submit(class_="btn new-button btn-primary") }}
-        <a onclick="close_form()" style="cursor: pointer;"><span class="material-icons">
-          close
-          </span></a>
-      </div>
-      </form>
-     </div>
-    
-    <!--ADD BTN-->
-    <div style="padding-top: 50px;" class="container-fluid text-right">
-        <button id="open_button" type="button" onTouchStart="open_form()" onclick="open_form()" class="btn btn-outline-dark"><img src="{{url_for('static', filename = 'img/add_black_24dp.svg')}}" alt=""> новый платеж</button><br><br>
-    </div>
-    
-    <!--table-->
-    <div  class="container-fluid cost-table text-left">
-      {% for day, expence in expences.items|groupby("date_created.day")|reverse %}
-        {% for exp in expence %}
-          <h1 class="display-4" style="font-size: 25px;">{{ moment(exp.date_created).format('MMMM, D dddd') }}</h1><br>
-          {% break %}
-        {% endfor %}
-        <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="table_head" scope="col">Категория</th>
-              <th  scope="col">Продукт</th>
-              <th scope="col">Цена</th>
-              <th  scope="col">Время</th>
-            </tr>
-          </thead>
-          <tbody>  
-            {% for exp in expence %}
-              <tr>
-                <td><span id="icon_name" class="material-icons"></span> {{ exp.category }}</td>
-                <td>{{ exp.product }}</td>
-                <td>{{ exp.price }} UAH</td>
-                <td><span id="time">{{ moment(exp.date_created).format('LT') }}</span></td>
-              </tr>
+
+        <!--Левая колонка-->
+        <div class="left-column">
+            <h1>budget</h1>
+            <ul>
+                <li class="active"><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename= 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
+                <li><a href="{{ url_for('dashboard.profile') }}"><img src="{{ url_for('static', filename = 'img/account_circle_white_24dp.svg') }}">&nbsp;{{ _('Профиль') }}</a></li>
+                <li><a href="{{ url_for('dashboard.settings') }}"><img src="{{ url_for('static', filename = 'img/settings_white_24dp.svg') }}">&nbsp;{{ _('Настройки') }}</a></li>
+                <li><a href="{{ url_for('auth.signout') }}"><img src="{{ url_for('static', filename= 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</a></li>
+            </ul>
+        </div>
+
+        <!--Правая колонка-->
+        <div class="right-column">
+
+            <!--Верхняя панель-->
+            <div class="top-nav">
+                <h1>{{ _('Главная') }}</h1>
+                <div class="mobile-menu">
+                    <div class="open_img" id="open_img"><img onclick="open_mobile_menu()" src="{{ url_for('static', filename = 'img/menu_white_24dp.svg') }}" alt=""></div>
+                    <div class="close_img" id="close_img"><img onclick="close_mobile_menu()" src="{{ url_for('static', filename = 'img/close_white_24dp.svg') }}" alt=""></div>
+                </div>
+                <div id="mobile-nav" class="mobile-navigation">
+                    <ul>
+                        <li class="active"><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename = 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
+                        <li><a href="{{ url_for('dashboard.profile') }}"><img src="{{ url_for('static', filename = 'img/account_circle_white_24dp.svg') }}">&nbsp;{{ _('Профиль') }}</a></li>
+                        <li><a href="{{ url_for('dashboard.settings') }}"><img src="{{ url_for('static', filename = 'img/settings_white_24dp.svg') }}">&nbsp;{{ _('Настройки') }}</a></li>
+                        <li><img src="{{ url_for('static', filename = 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--Подсчет потраченных денег-->
+            <div class="money-spent">
+                <div class="money-spent-info">
+                    <h1><b>{{ username }}</b>,{{ _('- вы потратили за') }} {{ moment(mon_exps.date_updated).format('MMMM') }} {{  monthly_expences }} UAH</h1>
+                    {% set previous = monthly_expences - prev_month_exps %}
+                    {% if monthly_expences > prev_month_exps %}
+                    <h2><img src="{{ url_for('static', filename = 'img/arrow_upward_black_24dp.svg') }}" alt="">
+                    {{ previous }} UAH {{ _('по сравнению с') }} {{ moment(prev_month).format('MMMM') }}</h2> 
+                       <!--Вот стрелочка вниз--> 
+                    {% else %}
+                    <h2><img src="{{ url_for('static', filename = 'img/arrow_downward_black_24dp.svg') }}" alt=""></h2>
+                    {{ previous }} UAH {{ _('по сравнению с') }} {{ moment(prev_month).format('MMMM') }}</h2>
+                    {% endif %}
+                  </div>
+                    <!--Диаграмма-->
+                    <div class="chart">
+                        <canvas id="myChart" width="200" height="200"></canvas>
+                    </div>
+                
+            </div>
+            <!--Кнопка добавления покупок-->
+            <div class="add-purchase">
+                <input onclick="open_adding_menu()" onmouseenter="on_mouse_enter()" onmouseleave="on_mouse_exit()" id="add-purchase" type="submit" class="add-button" value="+">
+            </div>
+
+            <!--Таблица затрат-->
+        <div class="money-table">
+          {% for day, expence in expences.items|groupby("date_created.day")|reverse %}
+            <table>
+              {% for exp in expence %}
+                <tr><th colspan="4">{{ moment(exp.date_created).format('MMMM, D dddd') }}</th></tr>
+                {% break %}
+              {% endfor %}    
+                    <tr>
+                        <td>{{ _('Категория') }}</td>
+                        <td>{{ _('Продукт') }}</td>
+                        <td>{{ _('Цена') }}</td>
+                        <td>{{ _('Время') }}</td>
+                    </tr>
+                    {% for exp in expence %}
+                    <tr>
+                        <td>{{ exp.category }}</td>
+                        <td>{{ exp.product }}</td>
+                        <td>{{ exp.price }} UAH</td>
+                        <td>{{ moment(exp.date_created).format('LT') }}</td>
+                    </tr>
+                    {% endfor %}
+            </table>
+          {% endfor %}
+        </div>
+
+        <!--Переключение страниц-->
+        <div class="pagination">
+          <ul>
+            {% for page_num in expences.iter_pages() %}
+              {% if page_num %}
+                {% if expences.page == page_num %}
+                  <li class="page-active"><a href="{{ url_for('dashboard.dashboard', page=page_num) }}">{{ page_num }}</a></li>
+                {% else %}
+                  <li><a href="{{ url_for('dashboard.dashboard', page=page_num) }}" style="color: black;">{{ page_num }}</a></li>
+                {% endif %}
+              {% endif %}
             {% endfor %}
-          </tbody>
-        </table></div>
-      {% endfor %}
-      <nav style="display: flex; justify-content:center">
-        <ul class="pagination">
-      {% for page_num in expences.iter_pages() %}
-        {% if page_num %}
-          {% if expences.page == page_num %}
-            <!-- Сюда встать стиль для текущей страници -->
-            <li class="page-item active"><a class="page-link"  href="{{ url_for('dashboard.dashboard', page=page_num) }}">{{ page_num }}</a></li>
-          {% else %}
-            <!-- А сюда для остальных -->
-            <li class="page-item"> <a  style="color: black;" class="page-link"  href="{{ url_for('dashboard.dashboard', page=page_num) }}">{{ page_num }}</a> </li>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </nav>
+          </ul>
+        </div>
+    </div>  
+
+        
+        
+    </div>
+    
+    <div id="layer">
+        <div id="modal">
+            <form method="POST">
+              {{ form.hidden_tag() }}
+              {{ form.category_select(class_="form-control form-my ") }}<br>
+              {{ form.product_name(class_="form-control form-control-sm form-my", placeholder="Продукт") }}<br>
+              {{ form.price_value(class_="form-control form-control-sm form-my",  placeholder="Цена") }}<br>
+              {{ form.submit }}
+            </form>
+        </div>
     </div>
 
-    <!-- JS -->
-    <!-- Скрипт графика -->
-   <canvas id="myChart" width="200px" height="200px"></canvas>
-<script>
-var ctx = document.getElementById('chart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: {{ labels | safe }},
-      
-        datasets: [{
-            label: '',
+    <!-- Chart -->
+    <script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: {{ labels | safe }},
+          datasets: [{
+            label: '# of Votes',
             data: {{ values | safe }},
             backgroundColor: [
-            'rgb(169, 222, 249)',
-            'rgb(228, 193, 249)',
-            'rgb(208, 244, 222)',
-            'rgb(175, 187, 242)',
-            'rgb(252, 246, 189)',
-            'rgb(233, 124, 97)', //TODO: этот и дальше цвета заменить
-            'rgb(235, 136, 111)',
-            'rgb(237, 147, 124)',
-            'rgb(239, 157, 136)',
-            ],
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)',
+                'rgba(255, 159, 64, 0.5)'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins:{
+            legend: {
+              display: false
+            }, 
+          }   
+        }
+      });
+    </script>
 
-        }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins:{
-        legend: {
-          display: false
-      },
-      
-      
-      },     
-    }
-});
-</script>
-    <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>
-    
-  </div>
-
-  </body>
-  
+    <script src="{{ url_for('static', filename = 'js/profileScript.js') }}"></script>
+    <script>
+        // Эта шляпа плавно закрывает экран загрузки когда все прогрузилось
+        window.onload = function () {
+          document.body.classList.add('loaded_hiding');
+          window.setTimeout(function () {
+            document.body.classList.add('loaded');
+            document.body.classList.remove('loaded_hiding');
+          }, 500);
+        }
+      </script>
+</body>
 </html>

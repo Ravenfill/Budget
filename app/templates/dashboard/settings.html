@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        DESIGNED BY OVLADAET
+        INST: ovladaettt
+    -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget - {{ _('Настройки') }}</title>
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="reset-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Экран загрузки -->
+    <div class="preloader">
+        <div class="preloader__row">
+          <div class="preloader__item"></div>
+          <div class="preloader__item"></div>
+        </div>
+      </div>
+
+    <div class="personal-area">
+       <!--Левая колонка-->
+       <div class="left-column">
+        <h1>budget</h1>
+        <ul>
+            <li><a href="index.html"><img src="img/dashboard_white_24dp.svg">&nbsp;{{ _('Главная') }}</a></li>
+            <li><a href="profile.html"><img src="img/account_circle_white_24dp.svg">&nbsp;{{ _('Профиль') }}</a></li>
+            <li class="active"><a href="settings.html"><img src="img/settings_white_24dp.svg">&nbsp;{{ _('Настройки') }}</a></li>
+            <li><img src="img/logout_white_24dp.svg">&nbsp;{{ _('Выйти') }}</li>
+        </ul>
+    </div>
+
+        <!--Правая колонка-->
+       
+        <div class="right-column">
+          
+            <!--Верхняя панель-->
+            <div class="top-nav">
+                <h1>{{ _('Настройки') }}</h1>
+                <div class="mobile-menu">
+                    <div class="open_img" id="open_img"><img onclick="open_mobile_menu()" src="img/menu_white_24dp.svg" alt=""></div>
+                    <div class="close_img" id="close_img"><img onclick="close_mobile_menu()" src="img/close_white_24dp.svg" alt=""></div>
+                </div>
+                <div id="mobile-nav" class="mobile-navigation">
+                    <ul>
+                        <li><a href="index.html"><img src="img/dashboard_white_24dp.svg">&nbsp;{{ _('Главная') }}</a></li>
+                        <li><a href="profile.html"><img src="img/account_circle_white_24dp.svg">&nbsp;{{ _('Профиль') }}</a></li>
+                        <li class="active"><a href="settings.html"><img src="img/settings_white_24dp.svg">&nbsp;{{ _('Настройки') }}</a></li>
+                        <li><img src="img/logout_white_24dp.svg">&nbsp;{{ _('Выйти') }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="settings-title"><h1>{{ _('Настройки') }}</h1></div>
+            <div class="lang-select">
+                <h1>{{ _('Язык') }}:</h1>
+                <select name="lang" id="">
+                    <option value="Русский">English</option>
+                    <option value="Русский">Русский</option>
+                    <option value="Українська">Українська</option>
+                    <option value="Русский">Deutsch</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <script src="profileScript.js"></script>
+    <script>
+        
+document.getElementById("close_img").hidden = true;
+document.getElementById("mobile-nav").hidden = true;
+function open_mobile_menu(){
+    document.getElementById("mobile-nav").hidden = false;
+    document.getElementById("close_img").hidden = false;
+    document.getElementById("open_img").hidden = true;
+}
+
+function close_mobile_menu(){
+    document.getElementById("mobile-nav").hidden = true;
+    document.getElementById("close_img").hidden = true;
+    document.getElementById("open_img").hidden = false;
+}
+
+        window.onload = function () {
+          document.body.classList.add('loaded_hiding');
+          window.setTimeout(function () {
+            document.body.classList.add('loaded');
+            document.body.classList.remove('loaded_hiding');
+          }, 500);
+        }
+
+
+    </script>
+</body>
+</html>
