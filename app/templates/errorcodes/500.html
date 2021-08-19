@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
     <title>404</title>
 </head>
 <body>
     <div class="e404">
         <div class="e404_child">
-            <img src="img/Data and settings_Flatline.svg" alt="">
-            <h1>Ошибка сервера</h1><br>
-            <h2>На сервере произошла непредвиденная ошибка. Пожалуйста, подождите; она вскоре будет исправлена.</h2>
+            <img src="{{ url_for('static', filename = 'img/Data and settings_Flatline.svg') }}" alt="">
+            <h1>{{ _('Ошибка сервера') }}</h1><br>
+            <h2>{{ _('На сервере произошла непредвиденная ошибка. Пожалуйста, подождите; она вскоре будет исправлена.') }}</h2>
         </div>
         </div>
     </div>

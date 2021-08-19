@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
     <title>404</title>
 </head>
 <body>
     <div class="e404">
         <div class="e404_child">
-            <img src="img/404 Page Not Found _Monochromatic.svg" alt="">
-            <h1>Ой, кажется этой страницы не существует</h1><br>
-            <h2>Возможно вы хотите вернуться на <a href="#">главную страницу</a></h2>
+            <img src="{{ url_for('static', filename = 'img/404 Page Not Found _Monochromatic.svg') }}" alt="">
+            <h1>{{ _('Ой, кажется этой страницы не существует') }}</h1><br>
+            <h2>{{ _('Возможно вы хотите вернуться на') }} <a href="{{ url_for('dashboard.dashboard') }}">главную страницу</a></h2>
             
         </div>
         </div>
