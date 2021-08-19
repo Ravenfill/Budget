@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 from app.auth.models import User
 from flask_babel import gettext
 
-board = Blueprint('dashboard', __name__, url_prefix='/<lang_code>/dashboard')
+board = Blueprint('dashboard', __name__, url_prefix='/<lang_code>')
 
 @board.url_defaults
 def add_language_code(endpoint, values):
@@ -25,7 +25,7 @@ def load_user(user_id):
 
 # Main dashboard route
 @board.route('/')
-@board.route('/', methods=['POST', 'GET'])
+@board.route('/dashboard', methods=['POST', 'GET'])
 @login_required
 def dashboard():
     form = AddExpenceForm()
@@ -91,3 +91,20 @@ def dashboard():
             prev_month_exps=prev_month_exps,
             labels=labels, values=values,
             )
+
+@board.route('/profile')
+def profile():
+    monthly_expences = 0
+    prev_month_exps = 0
+
+    exps = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
+
+    for exp in exps:
+        if exp.date_created.utcnow().strftime("%Y-%m") == datetime.utcnow().strftime("%Y-%m"):
+            monthly_expences += exp.price
+        elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > pprev_month:
+            prev_month_exps += exp.price
+
+    data = [prev_month_exps, monthly_expences]
+
+    return render_template('dashboard/profile.html', data=data)

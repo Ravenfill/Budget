@@ -39,6 +39,7 @@
 <!-- 13.08.2021 - Eбучая Jinja!!!!! -->
 <!-- 14.08.2021 - А прикинь что это кто-то читает. 
   Если что инста чуть выше)-->
+<!-- 19.08.2021 - Это кото-то читает то мне его жалко -->
 
 <body>
   <div class="main">
@@ -55,7 +56,7 @@
                         <a href="#" class="nav-link"><img src="{{url_for('static', filename='../static/img/home_black_24dp.svg')}}" alt="">{{ _('Главная') }}</a>
                     </li>
                     <li id="nav-item-down" class="nav-item">
-                        <a href="#" class="nav-link"><img src="{{url_for('static', filename='../static/img/account_circle_black_24dp.svg')}}" alt="">{{ _('Профиль') }}</a> <!--имя профиля будет мб-->
+                        <a href="{{ url_for('dashboard.profile') }}" class="nav-link"><img src="{{url_for('static', filename='../static/img/account_circle_black_24dp.svg')}}" alt="">{{ _('Профиль') }}</a> <!--имя профиля будет мб-->
                     </li>
                     <li id="nav-item-down" class="nav-item">
                         <a href="{{ url_for('auth.signout') }}" class="nav-link"><span class="material-icons"> login
