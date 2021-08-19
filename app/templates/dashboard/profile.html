@@ -9,28 +9,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget - {{ _('Профиль') }}</title>
-    <link rel="stylesheet" href="profile.css">
-    <link rel="stylesheet" href="reset-styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/reset-styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <!-- Экран загрузки -->
+<!--    <!-- Экран загрузки
     <div class="preloader">
         <div class="preloader__row">
           <div class="preloader__item"></div>
           <div class="preloader__item"></div>
         </div>
       </div>
-
+    -->
     <div class="personal-area">
        <!--Левая колонка-->
        <div class="left-column">
         <h1>budget</h1>
         <ul>
-            <li><a href="index.html"><img src="img/dashboard_white_24dp.svg">&nbsp;{{ _('Главная') }}</a></li>
-            <li class="active"><a href="profile.html"><img src="img/account_circle_white_24dp.svg">&nbsp;{{ _('Профиль') }}</a></li>
-            <li><a href="settings.html"><img src="img/settings_white_24dp.svg">&nbsp;{{ _('Настройки') }}</a></li>
-            <li><img src="img/logout_white_24dp.svg">&nbsp;{{ _('Выйти') }}</li>
+            <li><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename = 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
+            <li class="active"><a href="{{ url_for('dashboard.profile') }}"><img src="{{ url_for('static', filename = 'img/account_circle_white_24dp.svg') }}">&nbsp;{{ _('Профиль') }}</a></li>
+            <li><a href="{{ url_for('dashboard.settings') }}"><img src="{{ url_for('static', filename = 'img/settings_white_24dp.svg') }}">&nbsp;{{ _('Настройки') }}</a></li>
+            <li><a href="{{ url_for('auth.signout') }}"><img src="{{ url_for('static', filename = 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</a></li>
         </ul>
     </div>
 
@@ -47,10 +47,10 @@
                 </div>
                 <div id="mobile-nav" class="mobile-navigation">
                     <ul>
-                        <li><a href="index.html"><img src="img/dashboard_white_24dp.svg">&nbsp;{{ _('Главная') }}</a></li>
-                        <li class="active"><a href="profile.html"><img src="img/account_circle_white_24dp.svg">&nbsp;{{ _('Профиль') }}</a></li>
-                        <li><a href="settings.html"><img src="img/settings_white_24dp.svg">&nbsp;{{ _('Настройки') }}</a></li>
-                        <li><img src="img/logout_white_24dp.svg">&nbsp;{{ _('Выйти') }}</li>
+                        <li><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename = 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
+                        <li class="active"><a href="{{ url_for('dashboard.profile') }}"><img src="{{ url_for('static', filename = 'img/account_circle_white_24dp.svg') }}">&nbsp;{{ _('Профиль') }}</a></li>
+                        <li><a href="{{ url_for('dashboard.settings') }}"><img src="{{ url_for('static', filename = 'img/settings_white_24dp.svg') }}">&nbsp;{{ _('Настройки') }}</a></li>
+                        <li><a href="{{ url_for('auth.signout') }}"><img src="{{ url_for('static', filename = 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,22 +60,68 @@
             <div class="user-info">
                 <h1 id="hello"></h1>
                 <div class="money-per-month">
-                    <h1>{{ _('Затраты за этот месяц') }} - 500 UAH</h1><hr>
-                    
+                    <h1>{{ _('Затраты за этот месяц') }} - {{ first_exps }} UAH</h1><hr>
                 </div>
-                
-            
             <!--Диаграмма-->
             <div class="chart">
                 <canvas id="profile-Chart" width="200" height="200"></canvas>
             </div></div>
         </div>
         </div>
-
-    <script src="profileScript.js"></script>
+    <script src="{{ url_for('static', filename = 'js/profileScript.js') }}"></script>
     <script>
+        var ctx = document.getElementById('profile-Chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ s_labels | safe }},
+                datasets: [{
+                    label: 'Потрачено UAH',
+                    data: {{ s_values | safe }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins:{
+                  legend: {
+                    display: false
+                    },
+                }   
+            }
+        });
+        
+        
+        
+    </script>
+    
+<!--    <script>
 
-            
+window.onload = function () {
+          document.body.classList.add('loaded_hiding');
+          window.setTimeout(function () {
+            document.body.classList.add('loaded');
+            document.body.classList.remove('loaded_hiding');
+          }, 500);
+        }
+
 
 function checkTime(i)
 {
@@ -115,57 +161,6 @@ function close_mobile_menu(){
     document.getElementById("open_img").hidden = false;
 }
 
-
-var ctx = document.getElementById('profile-Chart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь'],
-        datasets: [{
-            label: 'Потрачено UAH',
-            data: [1222, 1911, 323, 511, 2231, 322],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins:{
-          legend: {
-            display: false
-        },
-        
-        
-        }   
-      }
-});
-
-
-        window.onload = function () {
-          document.body.classList.add('loaded_hiding');
-          window.setTimeout(function () {
-            document.body.classList.add('loaded');
-            document.body.classList.remove('loaded_hiding');
-          }, 500);
-        }
-
-
-    </script>
+</script>-->
 </body>
 </html>

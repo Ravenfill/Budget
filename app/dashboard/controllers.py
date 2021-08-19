@@ -68,11 +68,6 @@ def dashboard():
                 exps_per_category[exp.category] += exp.price
             elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > pprev_month:
                 prev_month_exps += exp.price
-                
-            if mon_exps.date_updated.strftime("%Y-%m-%d") < datetime.utcnow().strftime("%Y-%m-%d"):
-                mon_exps.monthly_expences = monthly_expences
-                mon_exps.previous_month_exps = prev_month_exps
-                mon_exps.date_updated = datetime.utcnow()
         
         data = []
         for key in exps_per_category:
@@ -95,20 +90,46 @@ def dashboard():
 
 @board.route('/profile')
 def profile():
-    monthly_expences = 0
-    prev_month_exps = 0
+
+    first_exps = 0
+    first_date = datetime.utcnow()
+    second_exps = 0
+    second_date = first_date.replace(day=1) - timedelta(days=1)
+    third_exps = 0
+    third_date = second_date.replace(day=1) - timedelta(days=1)
+    fourth_exps = 0
+    fourth_date = third_date.replace(day=1) - timedelta(days=1)
+    fifth_exps = 0
+    fifth_date = fourth_date.replace(day=1) - timedelta(days=1)
 
     exps = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
 
     for exp in exps:
-        if exp.date_created.utcnow().strftime("%Y-%m") == datetime.utcnow().strftime("%Y-%m"):
-            monthly_expences += exp.price
-        elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > pprev_month:
-            prev_month_exps += exp.price
+        if exp.date_created.utcnow().strftime("%Y-%m") == first_date.strftime("%Y-%m"):
+            first_exps += exp.price
+        elif exp.date_created.utcnow().strftime("%Y-%m") == second_date.strftime("%Y-%m"):
+            second_exps += exp.price
+        elif exp.date_created.utcnow().strftime("%Y-%m") == third_date.strftime("%Y-%m"):
+            third_exps += exp.price
+        elif exp.date_created.utcnow().strftime("%Y-%m") == fourth_exps.strftime("%Y-%m"):
+            fourth_exps += exp.price
+        elif exp.date_created.utcnow().strftime("%Y-%m") == fifth_date.strftime("%Y-%m"):
+            first_exps += exp.price
 
-    data = [prev_month_exps, monthly_expences]
+    exp_n = [first_exps, second_exps, third_exps, fourth_exps, fifth_exps]
+    exp_d = [gettext(str(first_date.utcnow().strftime("%B"))), gettext(str(second_date.utcnow().strftime("%B"))), 
+            gettext(str(third_date.utcnow().strftime("%B"))), gettext(str(fourth_date.utcnow().strftime("%B"))), 
+            gettext(str(fifth_date.utcnow().strftime("%B")))]
 
-    return render_template('dashboard/profile.html', data=data)
+    s_data = []
+    for i in range(0, 5):
+        if exp_n[i] != 0:
+            s_data.append((exp_d[i], exp_n[i]))
+    
+    s_labels = [row[0] for row in s_data]
+    s_values = [row[1] for row in s_data]
+
+    return render_template('dashboard/profile.html', first_exps=first_exps, s_labels=s_labels, s_values=s_values, s_data=s_data)
 
 @board.route('/settings')
 def settings():

@@ -61,7 +61,7 @@
                         <li class="active"><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename = 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
                         <li><a href="{{ url_for('dashboard.profile') }}"><img src="{{ url_for('static', filename = 'img/account_circle_white_24dp.svg') }}">&nbsp;{{ _('Профиль') }}</a></li>
                         <li><a href="{{ url_for('dashboard.settings') }}"><img src="{{ url_for('static', filename = 'img/settings_white_24dp.svg') }}">&nbsp;{{ _('Настройки') }}</a></li>
-                        <li><img src="{{ url_for('static', filename = 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</li>
+                        <li><a href="{{ url_for('auth.signout') }}"><img src="{{ url_for('static', filename = 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -141,9 +141,9 @@
         <div id="modal">
             <form method="POST">
               {{ form.hidden_tag() }}
-              {{ form.category_select(class_="form-control form-my ") }}<br>
-              {{ form.product_name(class_="form-control form-control-sm form-my", placeholder="Продукт") }}<br>
-              {{ form.price_value(class_="form-control form-control-sm form-my",  placeholder="Цена") }}<br>
+              {{ form.category_select }}<br>
+              {{ form.product_name }}<br>
+              {{ form.price_value }}<br>
               {{ form.submit }}
             </form>
         </div>
