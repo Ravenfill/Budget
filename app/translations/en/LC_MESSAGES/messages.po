@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-08-16 19:36+0300\n"
-"PO-Revision-Date: 2021-08-16 19:38+0300\n"
+"POT-Creation-Date: 2021-08-19 21:09+0300\n"
+"PO-Revision-Date: 2021-08-19 21:45+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
@@ -18,117 +18,176 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: auth/controllers.py:23
+#: auth/controllers.py:32
 msgid "Неверный пароль"
 msgstr "Incorect password"
 
-#: auth/controllers.py:25
+#: auth/controllers.py:34
 msgid "Пользователь не зарегестрирован"
 msgstr "User does not exist"
 
-#: auth/controllers.py:46
+#: auth/controllers.py:56
 msgid "Пользователь уже существует"
 msgstr "User already exists"
 
-#: auth/controllers.py:48
+#: auth/controllers.py:58
+msgid "Пароли не совпадают"
+msgstr "Passwords do not match"
+
+#: auth/controllers.py:60
 msgid "Имя пользователя слишком короткое"
 msgstr "Username is too short"
 
-#: auth/controllers.py:50
+#: auth/controllers.py:62
 msgid "Пароль слишком короткий"
 msgstr "Password is too short"
 
-#: templates/auth/signin.html:8 templates/auth/signin.html:60
-msgid "Вход"
+#: templates/auth/signin.html:8 templates/auth/signin.html:13
+msgid "Вход в аккаунт"
 msgstr "Sign In"
 
-#: templates/auth/signin.html:32 templates/auth/signup.html:33
-msgid "Главная"
-msgstr "Main"
-
-#: templates/auth/signin.html:35 templates/auth/signup.html:38
-msgid "Профиль"
-msgstr "Profile"
-
-#: templates/auth/signin.html:38
-msgid "Настройки"
-msgstr "Settings"
-
-#: templates/auth/signin.html:62 templates/auth/signup.html:64
-msgid "Логин:"
-msgstr "Login:"
-
-#: templates/auth/signin.html:64 templates/auth/signup.html:66
-msgid "Пароль:"
-msgstr "Password:"
-
-#: templates/auth/signin.html:66
+#: templates/auth/signin.html:17
 msgid "Запомнить меня"
-msgstr "Remember me:"
+msgstr "Remember me"
 
-#: templates/auth/signin.html:67
+#: templates/auth/signin.html:19
 msgid "Войти в аккаунт"
-msgstr "Log in to account"
+msgstr "Log in"
 
-#: templates/auth/signin.html:69
-msgid "Нет аккаунта?"
-msgstr "Don't have an account?"
-
-#: templates/auth/signin.html:69
-msgid "Зарегистрируйтесь"
-msgstr "Sign Up"
-
-#: templates/auth/signup.html:8 templates/auth/signup.html:62
+#: templates/auth/signup.html:8 templates/auth/signup.html:13
 msgid "Регистрация"
 msgstr "Sign Up"
 
-#: templates/auth/signup.html:68
+#: templates/auth/signup.html:18
 msgid "Создать аккаунт"
-msgstr "Create an account"
+msgstr "Create account"
 
-#: templates/auth/signup.html:70
-msgid "Имеете аккаунт?"
-msgstr "Own an account?"
+#: templates/dashboard/profile.html:11 templates/dashboard/profile.html:30
+#: templates/dashboard/profile.html:42 templates/dashboard/profile.html:50
+#: templates/dashboard/settings.html:31 templates/dashboard/settings.html:51
+msgid "Профиль"
+msgstr "Profile"
 
-#: templates/auth/signup.html:70
-msgid "Войдите"
-msgstr "Sign In"
+#: templates/dashboard/profile.html:29 templates/dashboard/profile.html:49
+#: templates/dashboard/settings.html:30 templates/dashboard/settings.html:50
+msgid "Главная"
+msgstr "Dashboard"
 
-#: templates/errorcodes/404.html:20
-msgid "Ошибка 404!"
-msgstr "Error 404!"
+#: templates/dashboard/profile.html:31 templates/dashboard/profile.html:51
+#: templates/dashboard/settings.html:11 templates/dashboard/settings.html:32
+#: templates/dashboard/settings.html:43 templates/dashboard/settings.html:52
+#: templates/dashboard/settings.html:57
+msgid "Настройки"
+msgstr "Settings"
 
-#: templates/errorcodes/404.html:27
-msgid "Здесь ничего нет."
-msgstr "Nothing in here"
+#: templates/dashboard/profile.html:32 templates/dashboard/profile.html:52
+#: templates/dashboard/settings.html:33 templates/dashboard/settings.html:53
+msgid "Выйти"
+msgstr "Log out"
 
-#: templates/errorcodes/404.html:28
+#: templates/dashboard/profile.html:62
+msgid "Затраты за этот месяц"
+msgstr "Expences for this month"
+
+#: templates/dashboard/profile.html:137
+msgid "Доброе утро!"
+msgstr "Good morning!"
+
+#: templates/dashboard/profile.html:140
+msgid "Добрый день!"
+msgstr "Good afternoon!"
+
+#: templates/dashboard/profile.html:143
+msgid "Добрый вечер!"
+msgstr "Good evening!"
+
+#: templates/dashboard/profile.html:146
+msgid "Доброй ночи!"
+msgstr "Good night!"
+
+#: templates/dashboard/settings.html:59
+msgid "Язык"
+msgstr "Language"
+
+#: templates/errorcodes/404.html:14
+msgid "Ой, кажется этой страницы не существует"
+msgstr "Oops, looks like this page does not exist"
+
+#: templates/errorcodes/404.html:15
 msgid "Возможно вы хотите вернуться на"
-msgstr "You might want to be back on"
+msgstr "You might wanto to come back at"
 
-#: templates/errorcodes/404.html:28
-msgid "главную страницу"
-msgstr "dashboard"
-
-#: templates/errorcodes/500.html:20
-msgid "Ошибка 500!"
-msgstr "Error 500!"
-
-#: templates/errorcodes/500.html:27
+#: templates/errorcodes/500.html:14
 msgid "Ошибка сервера"
-msgstr "Internal server error"
+msgstr "Server error"
 
-#: templates/errorcodes/500.html:28
+#: templates/errorcodes/500.html:15
 msgid ""
 "На сервере произошла непредвиденная ошибка. Пожалуйста, подождите; она "
-"вскоре будет исправлена"
-msgstr "There was an error on a server. Please, wait; erroe will be fixed soon"
+"вскоре будет исправлена."
+msgstr "There was an error on a server. Please, wait; it'll befixed soon "
 
-#: templates/errorcodes/500.html:29
-msgid "Попробуйте"
-msgstr "Try to"
+#: templates/dashboard/dashboard.html:72
+msgid "- вы потратили за"
+msgstr "- you have spent in"
 
-#: templates/errorcodes/500.html:29
-msgid "вернуться на главную страницу"
-msgstr "come back on main page"
+#: templates/dashboard/dashboard.html:76 templates/dashboard/dashboard.html:80
+msgid "по сравнению с "
+msgstr "in comparison with "
+
+#: templates/dashboard/dashboard.html:103
+msgid "Категория"
+msgstr "Category"
+
+#: templates/dashboard/dashboard.html:104
+msgid "Продукт"
+msgstr "Product"
+
+#: templates/dashboard/dashboard.html:105
+msgid "Цена"
+msgstr "Price"
+
+#: templates/dashboard/dashboard.html:106
+msgid "Время"
+msgstr "Time"
+
+#: dashboard/forms.py:6
+msgid "Продукты"
+msgstr "Food"
+
+#: dashboard/forms.py:6
+msgid "Развлечения"
+msgstr "Entertainment"
+
+#: dashboard/forms.py:6
+msgid "Налоги"
+msgstr "Tax"
+
+#: dashboard/forms.py:6
+msgid "Путешествия"
+msgstr "Travels"
+
+#: dashboard/forms.py:6
+msgid "Питомцы"
+msgstr "Pets"
+
+#: dashboard/forms.py:6
+msgid "Одежда"
+msgstr "Clothes"
+
+#: dashboard/forms.py:6
+msgid "Транспорт"
+msgstr "Transport"
+
+#: dashboard/forms.py:6
+msgid "Медицина"
+msgstr "Medicine"
+
+#: dashboard/forms.py:6
+msgid "Непредвиденные расходы"
+msgstr "Unplaned expences"
+
+#: dashboard/forms.py:11
+msgid "Добавить"
+msgstr "Add"
 

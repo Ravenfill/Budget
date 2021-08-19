@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, g
+from flask import Blueprint, render_template, request, redirect, url_for, g, has_request_context
 from app import db
 from app.dashboard.models import Expences, MonthlyExps
 from app.dashboard.forms import AddExpenceForm
@@ -6,7 +6,8 @@ from datetime import datetime, timedelta
 from app import login_manager
 from flask_login import login_required, current_user
 from app.auth.models import User
-from flask_babel import gettext
+from flask_babel import gettext, force_locale
+from flask_babel import _, lazy_gettext as _l
 
 board = Blueprint('dashboard', __name__, url_prefix='/<lang_code>')
 
@@ -28,6 +29,7 @@ def load_user(user_id):
 @board.route('/dashboard', methods=['POST', 'GET'])
 @login_required
 def dashboard():
+    
     form = AddExpenceForm()
     
     # Adding new items
@@ -51,15 +53,15 @@ def dashboard():
         pprev_month = (datetime.utcnow().replace(day=1) - timedelta(days=1)).replace(day=1) - timedelta(days=1)
 
         exps_per_category = {
-            'Продукты': 0,
-            'Развлечения': 0,
-            'Налоги': 0,
-            'Путешествия': 0,
-            'Питомцы': 0,
-            'Одежда': 0,
-            'Транспорт': 0,
-            'Медицина': 0,
-            'Непредвиденные расходы': 0,
+            'FOOD': 0,
+            'ENTER': 0,
+            'TAX': 0,
+            'TRAVELS': 0,
+            'PETS': 0,
+            'CLOTHES': 0,
+            'TRANS': 0,
+            'MEDICINE': 0,
+            'UNEXP': 0,
         }
 
         for exp in exps:

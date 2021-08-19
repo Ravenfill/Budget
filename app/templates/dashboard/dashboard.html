@@ -73,11 +73,11 @@
                     {% set previous = monthly_expences - prev_month_exps %}
                     {% if monthly_expences > prev_month_exps %}
                     <h2><img src="{{ url_for('static', filename = 'img/arrow_upward_black_24dp.svg') }}" alt="">
-                    {{ previous }} UAH {{ _('по сравнению с') }} {{ moment(prev_month).format('MMMM') }}</h2> 
+                    {{ previous }} UAH {{ _('по сравнению с ') }} {{ moment(prev_month).format('MMMM') }}</h2> 
                        <!--Вот стрелочка вниз--> 
                     {% else %}
                     <h2><img src="{{ url_for('static', filename = 'img/arrow_downward_black_24dp.svg') }}" alt=""></h2>
-                    {{ previous }} UAH {{ _('по сравнению с') }} {{ moment(prev_month).format('MMMM') }}</h2>
+                    {{ previous }} UAH {{ _('по сравнению с ') }} <h1>&nbsp;</h1> {{ moment(prev_month).format('MMMM') }}</h2>
                     {% endif %}
                   </div>
                     <!--Диаграмма-->
@@ -107,7 +107,7 @@
                     </tr>
                     {% for exp in expence %}
                     <tr>
-                        <td>{{ exp.category }}</td>
+                        <td>{{ gettext(exp.category) }}</td>
                         <td>{{ exp.product }}</td>
                         <td>{{ exp.price }} UAH</td>
                         <td>{{ moment(exp.date_created).format('LT') }}</td>
