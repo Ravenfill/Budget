@@ -28,7 +28,7 @@ SECRET_KEY = "secret"
 
 BABEL_DEFAULT_LOCALE = 'en'
 
-LANGUAGES = ['ru', 'en', 'uk', 'de']
+LANGUAGES = ['ru', 'en', 'uk', 'de',]
 
 # Session
 #USE_SESSION_FOR_NEXT = True

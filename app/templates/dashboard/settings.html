@@ -9,8 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget - {{ _('Настройки') }}</title>
-    <link rel="stylesheet" href="profile.css">
-    <link rel="stylesheet" href="reset-styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/reset-styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -27,10 +27,10 @@
        <div class="left-column">
         <h1>budget</h1>
         <ul>
-            <li><a href="index.html"><img src="img/dashboard_white_24dp.svg">&nbsp;{{ _('Главная') }}</a></li>
-            <li><a href="profile.html"><img src="img/account_circle_white_24dp.svg">&nbsp;{{ _('Профиль') }}</a></li>
-            <li class="active"><a href="settings.html"><img src="img/settings_white_24dp.svg">&nbsp;{{ _('Настройки') }}</a></li>
-            <li><img src="img/logout_white_24dp.svg">&nbsp;{{ _('Выйти') }}</li>
+            <li><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename = 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
+            <li><a href="{{ url_for('dashboard.profile') }}"><img src="{{ url_for('static', filename = 'img/account_circle_white_24dp.svg') }}">&nbsp;{{ _('Профиль') }}</a></li>
+            <li class="active"><a href="{{ url_for('dashboard.settings') }}"><img src="{{ url_for('static', filename = 'img/settings_white_24dp.svg') }}">&nbsp;{{ _('Настройки') }}</a></li>
+            <li><a href="{{ url_for('auth.signout') }}"><img src="{{ url_for('static', filename = 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</a></li>
         </ul>
     </div>
 
@@ -47,10 +47,10 @@
                 </div>
                 <div id="mobile-nav" class="mobile-navigation">
                     <ul>
-                        <li><a href="index.html"><img src="img/dashboard_white_24dp.svg">&nbsp;{{ _('Главная') }}</a></li>
-                        <li><a href="profile.html"><img src="img/account_circle_white_24dp.svg">&nbsp;{{ _('Профиль') }}</a></li>
-                        <li class="active"><a href="settings.html"><img src="img/settings_white_24dp.svg">&nbsp;{{ _('Настройки') }}</a></li>
-                        <li><img src="img/logout_white_24dp.svg">&nbsp;{{ _('Выйти') }}</li>
+                        <li><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename = 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
+                        <li><a href="{{ url_for('dashboard.profile') }}"><img src="{{ url_for('static', filename = 'img/account_circle_white_24dp.svg') }}">&nbsp;{{ _('Профиль') }}</a></li>
+                        <li class="active"><a href="{{ url_for('dashboard.settings') }}"><img src="{{ url_for('static', filename = 'img/settings_white_24dp.svg') }}">&nbsp;{{ _('Настройки') }}</a></li>
+                        <li><a href="{{ url_for('auth.signout') }}"><img src="{{ url_for('static', filename = 'img/logout_white_24dp.svg') }}">&nbsp;{{ _('Выйти') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,16 +58,21 @@
             <div class="lang-select">
                 <h1>{{ _('Язык') }}:</h1>
                 <select name="lang" id="">
-                    <option value="Русский">English</option>
+                    <option value="English">English</option>
                     <option value="Русский">Русский</option>
                     <option value="Українська">Українська</option>
-                    <option value="Русский">Deutsch</option>
+                    <option value="Deutsch">Deutsch</option>
                 </select>
             </div>
         </div>
     </div>
+<div>
+    <h1><a href="{{ url_for(request.endpoint, lang_code='en') }}">en</a></h1>
+    <h1><a href="{{ url_for(request.endpoint, lang_code='de') }}">de</a></h1>
+    <h1><a href="{{ url_for(request.endpoint, lang_code='uk') }}">uk</a></h1>
+</div>
 
-    <script src="profileScript.js"></script>
+    <script src="{{ url_for('static', filename = 'js/profileScript.js') }}"></script>
     <script>
         
 document.getElementById("close_img").hidden = true;
