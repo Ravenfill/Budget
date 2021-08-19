@@ -54,5 +54,6 @@ def index():
 
 # GARBAGE
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+app.jinja_env.globals['get_locale'] = get_locale
 
 db.create_all()

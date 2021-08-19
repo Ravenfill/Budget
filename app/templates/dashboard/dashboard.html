@@ -1,5 +1,6 @@
 {{ moment.include_moment()}}
-{{ moment.locale("ru") }}
+
+{{ moment.locale(get_locale()) }}
 
 <!DOCTYPE html>
 <lang lang="en">
@@ -134,7 +135,7 @@
                 <td><span id="icon_name" class="material-icons"></span> {{ exp.category }}</td>
                 <td>{{ exp.product }}</td>
                 <td>{{ exp.price }} UAH</td>
-                <td><span id="time">{{ moment(exp.date_created).format('hh:mm') }}</span></td>
+                <td><span id="time">{{ moment(exp.date_created).format('LT') }}</span></td>
               </tr>
             {% endfor %}
           </tbody>
@@ -200,6 +201,7 @@ var myChart = new Chart(ctx, {
     <script src="{{url_for('static', filename='../static/js/main.js')}}"></script>
     
   </div>
+
   </body>
   
 </html>
