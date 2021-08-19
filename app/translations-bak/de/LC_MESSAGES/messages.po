@@ -20,115 +20,116 @@ msgstr ""
 
 #: auth/controllers.py:23
 msgid "Неверный пароль"
-msgstr ""
+msgstr "Falsches Passwort"
 
 #: auth/controllers.py:25
 msgid "Пользователь не зарегестрирован"
-msgstr ""
+msgstr "Benutzer nicht registriert"
 
 #: auth/controllers.py:46
 msgid "Пользователь уже существует"
-msgstr ""
+msgstr "Benutzer existiert bereits"
 
 #: auth/controllers.py:48
 msgid "Имя пользователя слишком короткое"
-msgstr ""
+msgstr "Benutzername ist zu kurz"
 
 #: auth/controllers.py:50
 msgid "Пароль слишком короткий"
-msgstr ""
+msgstr "Passwort ist zu kurz"
 
 #: templates/auth/signin.html:8 templates/auth/signin.html:60
 msgid "Вход"
-msgstr ""
+msgstr "Eingang"
 
 #: templates/auth/signin.html:32 templates/auth/signup.html:33
 msgid "Главная"
-msgstr ""
+msgstr "Startseite"
 
 #: templates/auth/signin.html:35 templates/auth/signup.html:38
 msgid "Профиль"
-msgstr ""
+msgstr "Profil"
 
 #: templates/auth/signin.html:38
 msgid "Настройки"
-msgstr ""
+msgstr "Einstellungen"
 
 #: templates/auth/signin.html:62 templates/auth/signup.html:64
 msgid "Логин:"
-msgstr ""
+msgstr "Login"
 
 #: templates/auth/signin.html:64 templates/auth/signup.html:66
 msgid "Пароль:"
-msgstr ""
+msgstr "Passwort"
 
 #: templates/auth/signin.html:66
 msgid "Запомнить меня"
-msgstr ""
+msgstr "Merken mich"
 
 #: templates/auth/signin.html:67
 msgid "Войти в аккаунт"
-msgstr ""
+msgstr "Mit Konto anmelden"
 
 #: templates/auth/signin.html:69
 msgid "Нет аккаунта?"
-msgstr ""
+msgstr "Sie haben kein Konto?"
 
 #: templates/auth/signin.html:69
 msgid "Зарегистрируйтесь"
-msgstr ""
+msgstr "Registrieren"
 
 #: templates/auth/signup.html:8 templates/auth/signup.html:62
 msgid "Регистрация"
-msgstr ""
+msgstr "Anmeldung"
 
 #: templates/auth/signup.html:68
 msgid "Создать аккаунт"
-msgstr ""
+msgstr "Ein Konto erstellen"
 
 #: templates/auth/signup.html:70
 msgid "Имеете аккаунт?"
-msgstr ""
+msgstr "Sie haben bereits ein Konto?"
 
 #: templates/auth/signup.html:70
 msgid "Войдите"
-msgstr ""
+msgstr "Einloggen"
 
 #: templates/errorcodes/404.html:20
 msgid "Ошибка 404!"
-msgstr ""
+msgstr "Fehler 404!"
 
 #: templates/errorcodes/404.html:27
 msgid "Здесь ничего нет."
-msgstr ""
+msgstr "Hier ist nichts"
 
 #: templates/errorcodes/404.html:28
 msgid "Возможно вы хотите вернуться на"
-msgstr ""
+msgstr "Vielleicht möchten Sie zurückkehren zu"
 
 #: templates/errorcodes/404.html:28
 msgid "главную страницу"
-msgstr ""
+msgstr "Startseite"
 
 #: templates/errorcodes/500.html:20
 msgid "Ошибка 500!"
-msgstr ""
+msgstr "Fehler 500!"
 
 #: templates/errorcodes/500.html:27
 msgid "Ошибка сервера"
-msgstr ""
+msgstr "Serverfehler"
 
 #: templates/errorcodes/500.html:28
 msgid ""
 "На сервере произошла непредвиденная ошибка. Пожалуйста, подождите; она "
 "вскоре будет исправлена"
-msgstr ""
+msgstr "Auf dem Server ist ein unerwarteter Fehler aufgetreten. Bitte warten Sie; es"
+"wird bald behoben"
 
 #: templates/errorcodes/500.html:29
 msgid "Попробуйте"
-msgstr ""
+msgstr "Versuch es"
 
 #: templates/errorcodes/500.html:29
 msgid "вернуться на главную страницу"
-msgstr ""
+msgstr "Zurück zur Startseite"
 
