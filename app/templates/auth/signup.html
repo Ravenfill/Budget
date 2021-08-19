@@ -4,22 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = '/css/main.css') }}">
     <title>{{ _('Регистрация') }}</title>
 </head>
 <body>
     <div class="login-form">
-        <form action="index.html">
+        <form method="POST" action="{{ url_for('auth.signup') }}">
             <h1>{{ _('Регистрация') }}</h1>
-            <input type="text" placeholder="{{ _('Логин') }}" required>
-            <input type="password" placeholder="{{ _('Пароль') }}" required>
-            <input type="password" placeholder="{{ _('Повторите пароль') }}" required>
-            <label for="">{{ _('Запомнить меня') }}<input type="checkbox"></label>
+            {{ form.hidden_tag() }}
+            {{ form.username }}
+            {{ form.password }}
+            {{ form.re_password }}
             <input type="submit" value="{{ _('Создать аккаунт') }}">
+            <!--<button type="submit"></button>-->
             <!--Ошибки-->
             <div class="error_codes_login">
-                <h1>{{ _('Вы ввели неправильный пароль!') }}</h1>
-                <h2>{{ _('Пользователь уже существует!') }}</h2>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <h1>{{ message }}</h1>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
             </div>
         </form>
     </div>

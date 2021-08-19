@@ -11,8 +11,10 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
+
 login_manager.init_app(app)
 login_manager.login_view = 'auth.signup'
+login_manager.login_message = u" "
 
 moment = Moment(app)
 
