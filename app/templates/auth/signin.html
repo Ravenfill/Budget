@@ -17,6 +17,9 @@
             <label for="">{{ _('Запомнить меня') }}
                 {{ form.remember }}</label>
             <input type="submit" value="{{ _('Войти в аккаунт') }}">
+            <div class="already-registered">
+                <h1>{{ _('Нет аккаунта?') }} <a href="{{ url_for('auth.signup') }}">{{ _('Перейти на страницу регистрации') }}</a></h1>
+            </div>
             <!--Ошибки-->
             <div class="error_codes_login">
                 {% with messages = get_flashed_messages() %}

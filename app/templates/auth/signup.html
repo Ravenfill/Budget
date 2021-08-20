@@ -16,6 +16,9 @@
             {{ form.password }}
             {{ form.re_password }}
             <input type="submit" value="{{ _('Создать аккаунт') }}">
+            <div class="already-registered">
+                <h1>{{ _('Уже зарегистрированы?') }} <a href="{{ url_for('auth.signin') }}">{{ _('Войдите в свой аккаунт') }}</a></h1>
+            </div>
             <!--<button type="submit"></button>-->
             <!--Ошибки-->
             <div class="error_codes_login">

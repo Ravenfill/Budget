@@ -15,6 +15,8 @@
     <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename = 'css/reset-styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- moment -->
 </head>
 <body>
@@ -36,7 +38,7 @@
     </div>
 
         <!--Левая колонка-->
-        <div class="left-column">
+        <div id="left-column" class="left-column">
             <h1>budget</h1>
             <ul>
                 <li class="active"><a href="{{ url_for('dashboard.dashboard') }}"><img src="{{ url_for('static', filename= 'img/dashboard_white_24dp.svg') }}">&nbsp;{{ _('Главная') }}</a></li>
@@ -96,7 +98,7 @@
           {% for day, expence in expences.items|groupby("date_created.day")|reverse %}
             <table>
               {% for exp in expence %}
-                <tr><th colspan="4">{{ moment(exp.date_created).format('MMMM, D dddd') }}</th></tr>
+                <tr id="num_of_tables" class="table"><th  colspan="4">{{ moment(exp.date_created).format('MMMM, D dddd') }}</th></tr>
                 {% break %}
               {% endfor %}    
                     <tr>
@@ -107,7 +109,8 @@
                     </tr>
                     {% for exp in expence %}
                     <tr>
-                        <td>{{ gettext(exp.category) }}</td>
+                      
+                        <td id="icon" class="icon" style="display:flex;"><div class="category"></div>{{ gettext(exp.category) }}</td>
                         <td>{{ exp.product }}</td>
                         <td>{{ exp.price }} UAH</td>
                         <td>{{ moment(exp.date_created).format('LT') }}</td>
@@ -151,6 +154,8 @@
 
     <!-- Chart -->
     <script>
+      
+    function load_chart(){
       var ctx = document.getElementById('myChart').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'doughnut',
@@ -179,6 +184,13 @@
           }   
         }
       });
+    }
+    load_chart();
+    window.addEventListener('resize', change_screen_size);
+    function change_screen_size(){
+      load_chart();
+    }
+
     </script>
 
     <script src="{{ url_for('static', filename = 'js/profileScript.js') }}"></script>

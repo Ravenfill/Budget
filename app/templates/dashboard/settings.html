@@ -42,8 +42,8 @@
             <div class="top-nav">
                 <h1>{{ _('Настройки') }}</h1>
                 <div class="mobile-menu">
-                    <div class="open_img" id="open_img"><img onclick="open_mobile_menu()" src="img/menu_white_24dp.svg" alt=""></div>
-                    <div class="close_img" id="close_img"><img onclick="close_mobile_menu()" src="img/close_white_24dp.svg" alt=""></div>
+                    <div class="open_img" id="open_img"><img onclick="open_mobile_menu()" src="{{ url_for('static', filename = 'img/menu_white_24dp.svg') }}" alt=""></div>
+                    <div class="close_img" id="close_img"><img onclick="close_mobile_menu()" src="{{ url_for('static', filename = 'img/close_white_24dp.svg') }}" alt=""></div>
                 </div>
                 <div id="mobile-nav" class="mobile-navigation">
                     <ul>
@@ -57,19 +57,14 @@
             <div class="settings-title"><h1>{{ _('Настройки') }}</h1></div>
             <div class="lang-select">
                 <h1>{{ _('Язык') }}:</h1>
-                <select name="lang" id="">
-                    <option value="English">English</option>
-                    <option value="Русский">Русский</option>
-                    <option value="Українська">Українська</option>
-                    <option value="Deutsch">Deutsch</option>
-                </select>
+                <h1><a href="{{ url_for(request.endpoint, lang_code='en') }}">English</a></h1>
+                <h1><a href="{{ url_for(request.endpoint, lang_code='de') }}">Deutsch</a></h1>
+                <h1><a href="{{ url_for(request.endpoint, lang_code='uk') }}">Украинский</a></h1>
             </div>
         </div>
     </div>
 <div>
-    <h1><a href="{{ url_for(request.endpoint, lang_code='en') }}">en</a></h1>
-    <h1><a href="{{ url_for(request.endpoint, lang_code='de') }}">de</a></h1>
-    <h1><a href="{{ url_for(request.endpoint, lang_code='uk') }}">uk</a></h1>
+    
 </div>
 
     <script src="{{ url_for('static', filename = 'js/profileScript.js') }}"></script>

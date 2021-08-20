@@ -41,8 +41,8 @@
             <div class="top-nav">
                 <h1>{{ _('Профиль') }}</h1>
                 <div class="mobile-menu">
-                    <div class="open_img" id="open_img"><img onclick="open_mobile_menu()" src="img/menu_white_24dp.svg" alt=""></div>
-                    <div class="close_img" id="close_img"><img onclick="close_mobile_menu()" src="img/close_white_24dp.svg" alt=""></div>
+                    <div class="open_img" id="open_img"><img onclick="open_mobile_menu()" src="{{ url_for('static', filename = 'img/menu_white_24dp.svg') }}" alt=""></div>
+                    <div class="close_img" id="close_img"><img onclick="close_mobile_menu()" src="{{ url_for('static', filename = 'img/close_white_24dp.svg') }}" alt=""></div>
                 </div>
                 <div id="mobile-nav" class="mobile-navigation">
                     <ul>
@@ -69,6 +69,7 @@
         </div>
     <script src="{{ url_for('static', filename = 'js/profileScript.js') }}"></script>
     <script>
+        
         var ctx = document.getElementById('profile-Chart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -106,9 +107,6 @@
                 }   
             }
         });
-        
-        
-        
     </script>
     
 <script>
