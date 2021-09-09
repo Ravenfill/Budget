@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, g
 from app.auth.forms import SignInForm, SignUpForm
 from app.auth.models import User
-from app.dashboard.models import MonthlyExps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from app import db
@@ -48,8 +47,6 @@ def signup():
                     db.session.add(new_user)
                     db.session.commit()
                     login_user(new_user, remember=False)
-                    exps = MonthlyExps(user=new_user.id)
-                    db.session.add(exps)
                     db.session.commit()
                     return redirect(url_for('dashboard.dashboard'))
                 except:
