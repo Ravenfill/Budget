@@ -3,6 +3,7 @@ from wtforms import StringField, SelectField, SubmitField, DecimalField
 from flask_babel import _, lazy_gettext as _l
 from enum import Enum
 
+# Categories in SelectField
 class Categories(Enum):
     FOOD = _l('Продукты')
     ENTER = _l('Развлечения')
@@ -19,6 +20,7 @@ class Categories(Enum):
 
 categories = [(y.name, _l(str(y.value))) for y in Categories]
 
+# Form to add expence
 class AddExpenceForm(FlaskForm):
     category_select = SelectField(choices=categories)
     product_name = StringField('Продукт', render_kw={"placeholder": _l('Продукт')})
