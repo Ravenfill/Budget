@@ -69,7 +69,7 @@
             <!--Подсчет потраченных денег-->
             <div class="money-spent">
                 <div class="money-spent-info">
-                    <h1><b>{{ username }}</b>,{{ _('- вы потратили за') }} {{ moment(mon_exps.date_updated).format('MMMM') }} {{  monthly_expences }} UAH</h1>
+                    <h1><b>{{ username }}</b>,{{ _('- вы потратили за') }} {{ moment(date).format('MMMM') }} {{  monthly_expences }} UAH</h1>
                     {% set previous = monthly_expences - prev_month_exps %}
                     {% if monthly_expences > prev_month_exps %}
                     <h2><img src="{{ url_for('static', filename = 'img/arrow_upward_black_24dp.svg') }}" alt="">
@@ -137,6 +137,7 @@
         
     </div>
     
+
     <div id="layer">
         <div id="modal">
             <form method="POST">

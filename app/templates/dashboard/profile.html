@@ -59,7 +59,7 @@
             <div class="user-info">
                 <h1 id="hello"></h1>
                 <div class="money-per-month">
-                    <h1>{{ _('Затраты за этот месяц') }} - {{ first_exps }} UAH</h1><hr>
+                    <h1>{{ _('Затраты за этот месяц') }} - {{ labels[0] }} UAH</h1><hr>
                 </div>
             <!--Диаграмма-->
             <div class="chart">
@@ -73,10 +73,10 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: {{ s_labels | safe }},
+                labels: {{ labels | safe }},
                 datasets: [{
                     label: 'Потрачено UAH',
-                    data: {{ s_values | safe }},
+                    data: {{ values | safe }},
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
