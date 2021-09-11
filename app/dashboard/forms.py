@@ -5,15 +5,21 @@ from enum import Enum
 
 # Categories in SelectField
 class Categories(Enum):
-    FOOD = _l('Продукты')
-    ENTER = _l('Развлечения')
-    TAX = _l('Налоги')
-    TRAVELS = _l('Путешествия')
-    PETS = _l('Питомцы')
-    CLOTHES = _l('Одежда')
-    TRANS = _l('Транспорт')
-    MEDICINE = _l('Медицина')
-    UNEXP = _l('Непредвиденные расходы')
+    FOOD = _l("Food & Drinks")
+    HOUSE = _l("Housing")
+    ENTER = _l("Entertainment")
+    TAX = _l("Tax")
+    TRAVELS = _l("Travels")
+    PETS = _l("Pets")
+    SHOPPING = _l("Shopping")
+    TRANSPORT = _l("Transportation")
+    MEDICINE = _l("Medicine")
+    SUPPLIES = _l("Supplies")
+    VEHICLE = _l("Vehicle")
+    COMMUNIC = _l("Communication")
+    INVESTMENT = _l("Investments")
+    INCOME = _l("Income")
+    OTHER = _l("Other")
 
     def __str__(self):
         return self.value
@@ -22,9 +28,7 @@ categories = [(y.name, _l(str(y.value))) for y in Categories]
 
 # Form to add expence
 class AddExpenceForm(FlaskForm):
+    tr_type = SelectField(choices=[('Income', _l('Income')), ('Expense', _l('Expence'))])
     category_select = SelectField(choices=categories)
-    product_name = StringField('Продукт', render_kw={"placeholder": _l('Продукт')})
-    price_value = DecimalField('Цена', render_kw={"placeholder": _l('Цена')})
+    amount = DecimalField('Amount', render_kw={"placeholder": _l('Amount')})
     submit = SubmitField(_l('Добавить'))
-
-

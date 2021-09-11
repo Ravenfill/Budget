@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref
 from app import db
 from flask_login import UserMixin
 
@@ -5,3 +6,4 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True, nullable=False)
     password = db.Column(db.String(90), nullable=False)
+    expenses = db.relationship('Transactions', backref='owner')

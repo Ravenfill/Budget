@@ -107,9 +107,9 @@
                     </tr>
                     {% for exp in expence %}
                     <tr>
+                        <td>{{ gettext(exp.tr_type) }}</td>
                         <td>{{ gettext(exp.category) }}</td>
-                        <td>{{ exp.product }}</td>
-                        <td>{{ exp.price }} UAH</td>
+                        <td>{{ exp.amount }} UAH</td>
                         <td>{{ moment(exp.date_created).format('LT') }}</td>
                     </tr>
                     {% endfor %}
@@ -142,9 +142,9 @@
         <div id="modal">
             <form method="POST">
               {{ form.hidden_tag() }}
+              {{ form.tr_type }}<br>
               {{ form.category_select }}<br>
-              {{ form.product_name }}<br>
-              {{ form.price_value }}<br>
+              {{ form.amount }}<br>
               {{ form.submit }}
             </form>
         </div>

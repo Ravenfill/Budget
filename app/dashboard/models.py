@@ -3,13 +3,14 @@ from datetime import datetime, timedelta
 from flask_login import current_user
 
 ## Expences table
-class Expences(db.Model):
+class Transactions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    tr_type = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(255), nullable=False)
-    product = db.Column(db.String(255), nullable=False)
-    price = db.Column(db.Float)
-    user = db.Column(db.Integer)
+    amount = db.Column(db.Float)
+    # TODO: make something with date_created
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class MonthExpencesProfile():
     first_exps = 0
@@ -24,18 +25,18 @@ class MonthExpencesProfile():
     fifth_date = fourth_date.replace(day=1) - timedelta(days=1)
 
     def __init__(self):
-        exps = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
+        exps = Transactions.query.filter_by(owner_id=current_user.id).order_by(Transactions.date_created.desc()).all()
         for exp in exps:
             if exp.date_created.utcnow().strftime("%Y-%m") == self.first_date.strftime("%Y-%m"):
-                self.first_exps += exp.price
+                self.first_exps += exp.amount
             elif exp.date_created.utcnow().strftime("%Y-%m") == self.second_date.strftime("%Y-%m"):
-                self.second_exps += exp.price
+                self.second_exps += exp.amount
             elif exp.date_created.utcnow().strftime("%Y-%m") == self.third_date.strftime("%Y-%m"):
-                self.third_exps += exp.price
+                self.third_exps += exp.amount
             elif exp.date_created.utcnow().strftime("%Y-%m") == self.fourth_exps.strftime("%Y-%m"):
-                self.fourth_exps += exp.price
+                self.fourth_exps += exp.amount
             elif exp.date_created.utcnow().strftime("%Y-%m") == self.fifth_date.strftime("%Y-%m"):
-                self.fifth_exps += exp.price
+                self.fifth_exps += exp.amount
         
         exp_n = [self.first_exps, self.second_exps, self.third_exps, self.fourth_exps, self.fifth_exps]
         exp_d = [self.first_date.strftime("%B"), self.second_date.strftime("%B"), self.third_date.strftime("%B"), self.fourth_date.strftime("%B"), self.fifth_date.strftime("%B")]
@@ -55,24 +56,30 @@ class MonthExpencesDashboard():
 
     exps_per_category = {
         'FOOD': 0,
+        'HOUSE': 0,
         'ENTER': 0,
         'TAX': 0,
         'TRAVELS': 0,
         'PETS': 0,
-        'CLOTHES': 0,
-        'TRANS': 0,
+        'SHOPPING': 0,
+        'TRANSPORT': 0,
         'MEDICINE': 0,
-        'UNEXP': 0,
+        'SUPPLIES': 0,
+        'VEHICLE': 0,
+        'COMMUNIC': 0,
+        'INVESTMENT': 0,
+        'INCOME': 0,
+        'OTHER': 0,
     }
 
     def __init__(self) -> None:
-        exps = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
+        exps = Transactions.query.filter_by(owner_id=current_user.id).order_by(Transactions.date_created.desc()).all()
         for exp in exps:
             if exp.date_created.utcnow().strftime("%Y-%m") == datetime.utcnow().strftime("%Y-%m"):
-                self.monthly_expences += exp.price
-                self.exps_per_category[exp.category] += exp.price
+                self.monthly_expences += exp.amount
+                self.exps_per_category[exp.category] += exp.amount
             elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > self.pprev_month:
-                self.prev_month_exps += exp.price
+                self.prev_month_exps += exp.amount
 
         self._data = []
         for key in self.exps_per_category:

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, g, has_request_context
 from app import db
-from app.dashboard.models import Expences, MonthExpencesProfile, MonthExpencesDashboard
+from app.dashboard.models import Transactions, MonthExpencesProfile, MonthExpencesDashboard
 from app.dashboard.forms import AddExpenceForm
 from datetime import datetime, timedelta
 from app import login_manager
@@ -32,7 +32,7 @@ def dashboard():
     
     # Adding new items
     if form.validate_on_submit():
-        new_item = Expences(category=form.category_select.data, product=form.product_name.data, price=form.price_value.data, user=current_user.id)
+        new_item = Transactions(tr_type=form.tr_type.data, category=form.category_select.data, amount=form.amount.data, owner_id=current_user.id)
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('dashboard.dashboard'))
@@ -41,7 +41,7 @@ def dashboard():
     else:
         # Initializing db models
         page = request.args.get('page', 1, type=int)
-        expences = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).paginate(per_page=5, page=page, error_out=True)
+        expences = Transactions.query.filter_by(owner_id=current_user.id).order_by(Transactions.date_created.desc()).paginate(per_page=5, page=page, error_out=True)
         
         # Calculating monthly expences
         data = MonthExpencesDashboard()
