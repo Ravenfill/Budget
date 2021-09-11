@@ -47,3 +47,43 @@ class MonthExpencesProfile():
 
     def __getitem__(self, position):
         return self._data[position]
+
+class MonthExpencesDashboard():
+    monthly_expences = 0
+    prev_month_exps = 0
+    pprev_month = (datetime.utcnow().replace(day=1) - timedelta(days=1)).replace(day=1) - timedelta(days=1)
+
+    exps_per_category = {
+        'FOOD': 0,
+        'ENTER': 0,
+        'TAX': 0,
+        'TRAVELS': 0,
+        'PETS': 0,
+        'CLOTHES': 0,
+        'TRANS': 0,
+        'MEDICINE': 0,
+        'UNEXP': 0,
+    }
+
+    def __init__(self) -> None:
+        exps = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
+        for exp in exps:
+            if exp.date_created.utcnow().strftime("%Y-%m") == datetime.utcnow().strftime("%Y-%m"):
+                self.monthly_expences += exp.price
+                self.exps_per_category[exp.category] += exp.price
+            elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > self.pprev_month:
+                self.prev_month_exps += exp.price
+
+        self._data = []
+        for key in self.exps_per_category:
+            if self.exps_per_category[key] != 0:
+                self._data.append((key, self.exps_per_category[key]) )
+    
+    def __getitem__(self, position):
+        return self._data[position]
+
+    def monthly_exps(self):
+        return self.monthly_expences
+
+    def prev_monthly_exps(self):
+        return self.prev_month_exps

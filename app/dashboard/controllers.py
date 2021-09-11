@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, g, has_request_context
 from app import db
-from app.dashboard.models import Expences, MonthExpencesProfile
+from app.dashboard.models import Expences, MonthExpencesProfile, MonthExpencesDashboard
 from app.dashboard.forms import AddExpenceForm
 from datetime import datetime, timedelta
 from app import login_manager
@@ -41,37 +41,13 @@ def dashboard():
     else:
         # Initializing db models
         page = request.args.get('page', 1, type=int)
-        exps = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).all()
         expences = Expences.query.filter_by(user=current_user.id).order_by(Expences.date_created.desc()).paginate(per_page=5, page=page, error_out=True)
         
         # Calculating monthly expences
-        monthly_expences = 0
-        prev_month_exps = 0
-        pprev_month = (datetime.utcnow().replace(day=1) - timedelta(days=1)).replace(day=1) - timedelta(days=1)
+        data = MonthExpencesDashboard()
 
-        exps_per_category = {
-            'FOOD': 0,
-            'ENTER': 0,
-            'TAX': 0,
-            'TRAVELS': 0,
-            'PETS': 0,
-            'CLOTHES': 0,
-            'TRANS': 0,
-            'MEDICINE': 0,
-            'UNEXP': 0,
-        }
-
-        for exp in exps:
-            if exp.date_created.utcnow().strftime("%Y-%m") == datetime.utcnow().strftime("%Y-%m"):
-                monthly_expences += exp.price
-                exps_per_category[exp.category] += exp.price
-            elif exp.date_created.utcnow().strftime("%Y-%m") != datetime.utcnow().strftime("%Y-%m") and exp.date_created.utcnow().strftime("%Y-%m") > pprev_month:
-                prev_month_exps += exp.price
-        
-        data = []
-        for key in exps_per_category:
-            if exps_per_category[key] != 0:
-                data.append((key, exps_per_category[key]) )
+        monthly_expences = data.monthly_exps()
+        prev_month_exps = data.prev_monthly_exps()
 
         labels = [row[0] for row in data]
         values = [row[1] for row in data]
